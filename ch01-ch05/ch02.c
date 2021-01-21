@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <time.h>
 
 // Q1
 // int minof (const int a[], int n)
@@ -89,7 +91,6 @@
 // }
 
 // Q4
-// #include <time.h>
 // int maxof (const int a[], int n)
 // {
 //     int max=a[0];
@@ -150,50 +151,181 @@
 // }
 
 // Q6
+// #define swap(type, x, y) do{type t=x; x=y; y=t;} while(0)
+// int card_convr(unsigned x, int n, char d[])
+// {
+//     char dchar[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//     int digits=0;
+//     if(x==0)
+//         d[digits++] = dchar[0];
+//     else
+//         while(x)
+//         {
+//             d[digits++]=dchar[x%n];
+//             x/=n;
+//         }
+//     for(int i=0; i<digits/2; i++)
+//         swap(char, d[i], d[digits-i-1]);
+//     return digits;
+// }
+// int main(void)
+// {
+//     int i;
+//     unsigned no; // 정수
+//     int cd; // 기수
+//     int dno; // 변환 후 자릿수
+//     char cno[512];
+//     int retry;
+//     puts("10진수를 기수 변환합니다.");
+//     do
+//     {
+//         printf("변환하는 음이 아닌 정수: ");
+//         scanf("%d", &no);
+//         do
+//         {
+//             printf("어떤 진수로 변환할까요?(2-36): ");
+//             scanf("%d", &cd);
+//         } while (cd<2 || cd>36);
+//         dno=card_convr(no, cd, cno);
+//         printf("%d진수로는", cd);
+//         for(i=0; i<dno; i++)
+//             printf("%c", cno[i]);
+//         printf("입니다.\n");
+//         printf("한 번 더 할까요?(1 --- 예 / 0 --- 아니오): ");
+//         scanf("%d", &retry);
+//     } while (retry==1);
+//     return 0;
+// }
+
+// Q7
+// #define swap(type, x, y) do{type t=x; x=y; y=t;} while(0)
+// int card_convr(unsigned x, int n, char d[])
+// {
+//     char dchar[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//     int digits=0;
+//     if(x==0)
+//         d[digits++] = dchar[0];
+//     else
+//         while (x) {
+// 			printf("%2d | %7d ... %c\n", n, x, dchar[x % n]);
+// 			printf("   + ---------- \n");
+// 			d[digits++] = dchar[x % n];				 /* n으로 나눈 나머지를 넣어둠 */
+// 			x /= n;
+// 		}
+// 		printf("%12d\n", x);
+//     for(int i=0; i<digits/2; i++)
+//         swap(char, d[i], d[digits-i-1]);
+//     return digits;
+// }
+// int main(void)
+// {
+//     int i;
+//     unsigned no; // 정수
+//     int cd; // 기수
+//     int dno; // 변환 후 자릿수
+//     char cno[512];
+//     int retry;
+//     puts("10진수를 기수 변환합니다.");
+//     do
+//     {
+//         printf("변환하는 음이 아닌 정수: ");
+//         scanf("%d", &no);
+//         do
+//         {
+//             printf("어떤 진수로 변환할까요?(2-36): ");
+//             scanf("%d", &cd);
+//         } while (cd<2 || cd>36);
+//         dno=card_convr(no, cd, cno);
+//         printf("%d진수로는", cd);
+//         for(i=0; i<dno; i++)
+//             printf("%c", cno[i]);
+//         printf("입니다.\n");
+//         printf("한 번 더 할까요?(1 --- 예 / 0 --- 아니오): ");
+//         scanf("%d", &retry);
+//     } while (retry==1);
+//     return 0;
+// }
+
+// Q8
+// void ary_copy(int a[], const int b[], int n)
+// {
+//     for(int i=0; i<n; i++)
+//         a[i]=b[i];
+// }
+// int main(void)
+// {
+//     int n;
+//     printf("배열의 길이: ");
+//     scanf("%d", &n);
+//     int *a = calloc(n, sizeof(int));
+//     int *b = calloc(n, sizeof(int));
+//     for(int i=0; i<n; i++)
+//     {
+//         printf("a[%d]: ", i);
+//         scanf("%d", &a[i]);
+//     }
+//     ary_copy(b, a, n);
+//     for(int i=0; i<n; i++)
+//         printf("%d ", b[i]);
+//     free(a);
+//     free(b);
+//     return 0;
+// }
+
+// Q9
+// void ary_rev_copy(int a[], const int b[], int n)
+// {
+//     for(int i=0; i<n; i++)
+//         a[i]=b[n-i-1];
+// }
+// int main(void)
+// {
+//     int n;
+//     printf("배열의 길이: ");
+//     scanf("%d", &n);
+//     int *a = calloc(n, sizeof(int));
+//     int *b = calloc(n, sizeof(int));
+//     for(int i=0; i<n; i++)
+//     {
+//         printf("a[%d]: ", i);
+//         scanf("%d", &a[i]);
+//     }
+//     ary_rev_copy(b, a, n);
+//     for(int i=0; i<n; i++)
+//         printf("%d ", b[i]);
+//     free(a);
+//     free(b);
+//     return 0;
+// }
+
+// Q10
 #define swap(type, x, y) do{type t=x; x=y; y=t;} while(0)
-int card_convr(unsigned x, int n, char d[])
+void shuffle(int a[], int n)
 {
-    char dchar[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    int digits=0;
-    if(x==0)
-        d[digits++] = dchar[0];
-    else
-        while(x)
-        {
-            d[digits++]=dchar[x%n];
-            x/=n;
-        }
-    for(int i=0; i<digits/2; i++)
-        swap(char, d[i], d[digits-i-1]);
-    return digits;
+    srand(time(NULL));
+    for(int i=n-1; i>=0; i--)
+    {
+        int j=rand()%(i+1);
+        if(i!=j)
+            swap(int, a[i], a[j]);
+    }
 }
 int main(void)
 {
     int i;
-    unsigned no; // 정수
-    int cd; // 기수
-    int dno; // 변환 후 자릿수
-    char cno[512];
-    int retry;
-    puts("10진수를 기수 변환합니다.");
-    do
+    int num;
+    printf("배열의 길이: ");
+    scanf("%d", &num);
+    int *arr=calloc(num, sizeof(int));
+    for(i=0; i<num; i++)
     {
-        printf("변환하는 음이 아닌 정수: ");
-        scanf("%d", &no);
-        do
-        {
-            printf("어떤 진수로 변환할까요?(2-36): ");
-            scanf("%d", &cd);
-        } while (cd<2 || cd>36);
-        dno=card_convr(no, cd, cno);
-        printf("%d진수로는", cd);
-        for(i=0; i<dno; i++)
-            printf("%c", cno[i]);
-        printf("입니다.\n");
-        printf("한 번 더 할까요?(1 --- 예 / 0 --- 아니오): ");
-        scanf("%d", &retry);
-    } while (retry==1);
+        printf("arr[%d]: ", i);
+        scanf("%d", &arr[i]);
+    }
+    shuffle(arr, num);
+    printf("\nShuffled!\n");
+    for(i=0; i<num; i++)
+        printf("arr[%d]: %d\n", i, arr[i]);
+    free(arr);
     return 0;
 }
-
-// Q7
