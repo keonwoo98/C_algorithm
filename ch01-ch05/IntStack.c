@@ -25,7 +25,7 @@ int Pop(IntStack *s, int *x)
 {
     if(s->ptr <= 0)
         return -1;
-    *x = s->stk[s->ptr--];
+    *x = s->stk[--s->ptr];
     return 0;
 }
 
