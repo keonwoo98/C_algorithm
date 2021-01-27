@@ -100,7 +100,7 @@ int main(void)
 
         printf("\n현재 데이터 개수 : A:%d B:%d / %d\n", Size(&s, StackA), Size(&s, StackB), Capacity(&s));
         printf("1) A에 Push 2) A에서 Pop 3) A에서 Peek 4) A를 출력 5) A에서 검색 6) A를 초기화\n"
-                "7) B에서 Push 8) B에서 Pop 9) B에서 Peek 10) B를 출력 11) B에서 검색 12) B를 초기화\n"
+                "7) B에 Push 8) B에서 Pop 9) B에서 Peek 10) B를 출력 11) B에서 검색 12) B를 초기화\n"
                 "13) 빈 상태 / 가득 찬 상태 0) 종료 : ");
         scanf("%d", &menu);
 
