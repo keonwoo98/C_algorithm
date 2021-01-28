@@ -195,3 +195,45 @@
 
 //     return 0;
 // }
+
+// Q3
+#include "ArrayIntQueue.h"
+
+int main(void)
+{
+    ArrayIntQueue que;
+
+    if(Initialize(&que, 64) == -1)
+    {
+        puts("큐 생성에 실패했습니다.");
+        return -1;
+    }
+
+    while(1)
+    {
+        int m, x;
+        int idx;
+
+        printf("현재 데이터의 수 : %d / %d\n", Size(&que), Capacity(&que));
+        printf("(1)인큐 (2)디큐 (3)피크 (4)출력 (5)검색 (6)클리어 (7)빈 상태 / 가득 찬 상태 (0)종료 : ");
+        scanf("%d", &m);
+
+        if(m == 0) break;
+
+        switch (m)
+        {
+        case 1:
+            printf("데이터: "); scanf("%d", &x);
+            if(Enque(&que, x) == -1)
+                puts("\a오류: 인큐에 실패했습니다.");
+            break;
+        
+        case 2:
+            if(Deque(&que, &x) == -1)
+                puts("\a오류: 디큐에 실패했습니다.");
+            else
+                printf("디규한 데이터는 %d입니다.\n", x);
+            break;
+        }
+    }
+}
