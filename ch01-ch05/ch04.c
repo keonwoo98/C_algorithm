@@ -234,6 +234,37 @@ int main(void)
             else
                 printf("디규한 데이터는 %d입니다.\n", x);
             break;
+        
+        case 3:
+            if(Peek(&que, &x) == -1)
+                puts("\a오류: 피크에 실패했습니다.");
+            else
+                printf("피크한 데이터는 %d입니다.\n", x);
+            break;
+        
+        case 4:
+            Print(&que);
+            break;
+        
+        case 5:
+            printf("검색 데이터: ");
+            scanf("%d", &x);
+            if((idx = Search(&que, x)) == -1)
+                puts("\a오류: 검색에 실패했습니다.");
+            else
+                printf("데이터는 인덱스 %d에 있습니다.\n", idx);
+            break;
+        
+        case 6:
+            Clear(&que);
+            break;
+
+        case 7:
+            printf("큐가 비어 있%s.\n", IsEmpty(&que) ? "습니다" : "지 않습니다");
+            printf("큐가 가득%s.\n", IsFull(&que) ? "찼습니다" : "차지 않았습니다");
+            break;
         }
     }
+    Terminate(&que);
+    return 0;
 }
