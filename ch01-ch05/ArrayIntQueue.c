@@ -91,7 +91,7 @@ int Print(const ArrayIntQueue *q)
     int i;
 
     for(i = 0; i < q->num; i++)
-        printf("&d ", q->que[i]);
+        printf("%d ", q->que[i]);
     putchar('\n');
 }
 
