@@ -26,6 +26,8 @@ int Size(const IntQueue *q);
 
 int IsEmpty(const IntQueue *q);
 
+int Search2(const IntQueue* q, int x);
+
 int IsFull(const IntQueue *q);
 
 int Search(const IntQueue *q, int x);
