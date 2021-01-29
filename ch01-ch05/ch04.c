@@ -197,74 +197,158 @@
 // }
 
 // Q3
-#include "ArrayIntQueue.h"
+// #include "ArrayIntQueue.h"
 
-int main(void)
-{
-    ArrayIntQueue que;
+// int main(void)
+// {
+//     ArrayIntQueue que;
 
-    if(Initialize(&que, 64) == -1)
-    {
-        puts("큐 생성에 실패했습니다.");
-        return -1;
-    }
+//     if(Initialize(&que, 64) == -1)
+//     {
+//         puts("큐 생성에 실패했습니다.");
+//         return -1;
+//     }
 
-    while(1)
-    {
-        int m, x;
-        int idx;
+//     while(1)
+//     {
+//         int m, x;
+//         int idx;
 
-        printf("현재 데이터의 수 : %d / %d\n", Size(&que), Capacity(&que));
-        printf("(1)인큐 (2)디큐 (3)피크 (4)출력 (5)검색 (6)클리어 (7)빈 상태 / 가득 찬 상태 (0)종료 : ");
-        scanf("%d", &m);
+//         printf("현재 데이터의 수 : %d / %d\n", Size(&que), Capacity(&que));
+//         printf("(1)인큐 (2)디큐 (3)피크 (4)출력 (5)검색 (6)클리어 (7)빈 상태 / 가득 찬 상태 (0)종료 : ");
+//         scanf("%d", &m);
 
-        if(m == 0) break;
+//         if(m == 0) break;
 
-        switch (m)
-        {
-        case 1:
-            printf("데이터: "); scanf("%d", &x);
-            if(Enque(&que, x) == -1)
-                puts("\a오류: 인큐에 실패했습니다.");
-            break;
+//         switch (m)
+//         {
+//         case 1:
+//             printf("데이터: "); scanf("%d", &x);
+//             if(Enque(&que, x) == -1)
+//                 puts("\a오류: 인큐에 실패했습니다.");
+//             break;
         
-        case 2:
-            if(Deque(&que, &x) == -1)
-                puts("\a오류: 디큐에 실패했습니다.");
-            else
-                printf("디규한 데이터는 %d입니다.\n", x);
-            break;
+//         case 2:
+//             if(Deque(&que, &x) == -1)
+//                 puts("\a오류: 디큐에 실패했습니다.");
+//             else
+//                 printf("디규한 데이터는 %d입니다.\n", x);
+//             break;
         
-        case 3:
-            if(Peek(&que, &x) == -1)
-                puts("\a오류: 피크에 실패했습니다.");
-            else
-                printf("피크한 데이터는 %d입니다.\n", x);
-            break;
+//         case 3:
+//             if(Peek(&que, &x) == -1)
+//                 puts("\a오류: 피크에 실패했습니다.");
+//             else
+//                 printf("피크한 데이터는 %d입니다.\n", x);
+//             break;
         
-        case 4:
-            Print(&que);
-            break;
+//         case 4:
+//             Print(&que);
+//             break;
         
-        case 5:
-            printf("검색 데이터: ");
-            scanf("%d", &x);
-            if((idx = Search(&que, x)) == -1)
-                puts("\a오류: 검색에 실패했습니다.");
-            else
-                printf("데이터는 인덱스 %d에 있습니다.\n", idx);
-            break;
+//         case 5:
+//             printf("검색 데이터: ");
+//             scanf("%d", &x);
+//             if((idx = Search(&que, x)) == -1)
+//                 puts("\a오류: 검색에 실패했습니다.");
+//             else
+//                 printf("데이터는 인덱스 %d에 있습니다.\n", idx);
+//             break;
         
-        case 6:
-            Clear(&que);
-            break;
+//         case 6:
+//             Clear(&que);
+//             break;
 
-        case 7:
-            printf("큐가 비어 있%s.\n", IsEmpty(&que) ? "습니다" : "지 않습니다");
-            printf("큐가 가득%s.\n", IsFull(&que) ? "찼습니다" : "차지 않았습니다");
-            break;
-        }
-    }
-    Terminate(&que);
-    return 0;
-}
+//         case 7:
+//             printf("큐가 비어 있%s.\n", IsEmpty(&que) ? "습니다" : "지 않습니다");
+//             printf("큐가 가득%s.\n", IsFull(&que) ? "찼습니다" : "차지 않았습니다");
+//             break;
+//         }
+//     }
+//     Terminate(&que);
+//     return 0;
+// }
+
+// Q4,5
+// #include "IntQueue.h"
+
+// int main(void)
+// {
+//    IntQueue que;
+
+//    if (Initialize(&que, 64) == -1)
+//    {
+//       puts("큐의 생성에 실패하였습니다.");
+//       return 1;
+//    }
+//    while (1)
+//    {
+//       int m, x;
+//       int idx;
+
+//       printf("현재 데이터의 수 : %d / %d\n", Size(&que), Capacity(&que));
+//       printf("(1)인큐 (2)디큐 (3)피크 (4)출력 (5)검색 (6)검색2 (7)클린 (8)빈 상태 / 가득 찬 상태 (0)종료 : ");
+//       scanf("%d", &m);
+
+//       if (m == 0) break;
+//       switch (m)
+//       {
+//       case 1:
+//          printf("데이터: ");
+//          scanf("%d", &x);
+//          if (Enque(&que, x) == -1)
+//             puts("\a오류: 인큐에 실패하였습니다.");
+//          break;
+
+//       case 2:
+//          if (Deque(&que, &x) == -1)
+//             puts("\a오류: 디큐에 실패하였습니다.");
+//          else
+//             printf("디큐한 데이터는 %d입니다.\n", x);
+//          break;
+
+//       case 3:
+//          if (Peek(&que, &x) == -1)
+//             puts("\a오류: 피크에 실패하였습니다.");
+//          else
+//             printf("피크한 데이터는 %d입니다.\n", x);
+//          break;
+
+//       case 4:
+//          Print(&que);
+//          break;
+
+
+//       case 5:
+//          printf("검색 데이터: ");
+//          scanf("%d", &x);
+//          if ((idx = Search(&que, x)) == -1)
+//             puts("\a오류: 검색에 실패했습니다.");
+//          else
+//             printf("데이터는 인덱스 %d에 있습니다.\n", idx);
+//          break;
+
+//       case 6:
+//          printf("검색 데이터: ");
+//          scanf("%d", &x);
+//          if ((Search2(&que, x)) == -1)
+//             puts("\a오류: 검색에 실패했습니다.");
+//          else
+//             printf("데이터는 %d번째에 있습니다.\n", Search2(&que, x));
+//          break;
+
+//       case 7:
+//          Clear(&que);
+//          break;
+
+//       case 8:
+//          printf("큐가 비어 있%s.\n", IsEmpty(&que) ? "습니다" : "지 않습니다");
+//          printf("큐가 가득%s.\n", IsFull(&que) ? "찼습니다" : "차지 않았습니다");
+//          break;
+//       }
+//    }
+//    Terminate(&que);
+//    return 0;
+// }
+
+// Q6
