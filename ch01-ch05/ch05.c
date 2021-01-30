@@ -160,53 +160,157 @@
 // }
 
 // Q5
-#include "IntStack.h"
-void recur3(int n)
-{
-	int sw = 0;
-	IntStack nstk, sstk;			/* 스택 */
+// #include "IntStack.h"
+// void recur3(int n)
+// {
+// 	int sw = 0;
+// 	IntStack nstk, sstk;			/* 스택 */
 
-	Initialize(&nstk, 100);
+// 	Initialize(&nstk, 100);
+// 	Initialize(&sstk, 100);
+
+// 	while (1) {
+// 		if (n > 0) {
+// 			Push(&nstk, n);
+// 			Push(&sstk, sw);
+
+// 			if (sw == 0)
+// 				n = n - 1;
+// 			else if (sw == 1) {
+// 				n = n - 2;
+// 				sw = 0;
+// 			}
+// 			continue;
+// 		}
+// 		do {
+// 			Pop(&nstk, &n);
+// 			Pop(&sstk, &sw);
+// 			sw++;
+
+// 			if (sw == 2) {
+// 				printf("%d\n", n);
+// 				if (IsEmpty(&nstk))
+// 					return;
+// 			}
+// 		} while (sw == 2);
+// 	}
+
+// 	Terminate(&nstk);
+// 	Terminate(&sstk);
+// }
+
+// int main(void)
+// {
+// 	int x;
+
+// 	printf("정수를 입력하세요. : ");
+// 	scanf("%d", &x);
+
+// 	recur3(x);
+
+// 	return 0;
+// }
+
+// Q6
+// void move(int no, int x, int y)
+// {
+//     if(no > 1)
+//         move(no - 1, x, 6 - x- y);
+//     printf("원반[%d]를(을) %c 기둥에서 %c 기둥으로 옮김\n", no, x + 64, y + 64);
+
+//     if(no > 1)
+//         move(no - 1, 6 - x - y, y);
+// }
+// int main(void)
+// {
+//     int n;
+//     printf("하노이의 탑\n원반 개수 : ");
+//     scanf("%d", &n);
+//     move(n, 1, 3);
+//     return 0;
+// }
+
+
+// Q6
+// void move(int no, int x, int y)
+// {
+// 	char *name[] = { "Ａ기둥", "Ｂ기둥", "Ｃ기둥" };
+
+// 	if (no > 1)
+// 		move(no - 1, x, 6 - x - y);
+
+// 	printf("원반[%d]를 %s에서 %s로 이동\n", no, name[x - 1], name[y - 1]);
+
+// 	if (no > 1)
+// 		move(no - 1, 6 - x - y, y);
+// }
+
+// int main(void)
+// {
+// 	int n;
+
+// 	printf("하노이 탑\n원반 개수 : ");
+// 	scanf("%d", &n);
+
+// 	move(n, 1, 3);
+
+// 	return 0;
+// }
+
+// Q7
+#include "IntStack.h"
+
+void move(int no, int x, int y)
+{
+    int sw = 0;
+	IntStack xstk, ystk, sstk;		/* 스택 */
+
+	Initialize(&xstk, 100);
+	Initialize(&ystk, 100);
 	Initialize(&sstk, 100);
 
 	while (1) {
-		if (n > 0) {
-			Push(&nstk, n);
-			Push(&sstk, sw);
+		if (sw == 0 && no > 1) {
+			Push(&xstk, x);				/* x 값을 푸시 */
+			Push(&ystk, y);				/* y 값을 푸시 */
+			Push(&sstk, sw);			/* sw 값을 푸시 */
+			no = no - 1;
+			y = 6 - x - y;
+			continue;
+		}
 
-			if (sw == 0)
-				n = n - 1;
-			else if (sw == 1) {
-				n = n - 2;
-				sw = 0;
-			}
+		printf("원반[%d]를 %d 기둥에서 %d 기둥으로 이동\n", no, x, y);
+
+		if (sw == 1 && no > 1) {
+			Push(&xstk, x);				/* x 값을 푸시 */
+			Push(&ystk, y);				/* y 값을 푸시 */
+			Push(&sstk, sw);			/* sw 값을 푸시 */
+			no = no - 1;
+			x = 6 - x - y;
+			if (++sw == 2) sw = 0;
 			continue;
 		}
 		do {
-			Pop(&nstk, &n);
-			Pop(&sstk, &sw);
+			if (IsEmpty(&xstk))			/* 스택이 비어있는 상태라면 */
+				return;
+			Pop(&xstk, &x);				/* x를 팝 */
+			Pop(&ystk, &y);				/* y를 팝 */
+			Pop(&sstk, &sw);			/* sw를 팝 */
 			sw++;
-
-			if (sw == 2) {
-				printf("%d\n", n);
-				if (IsEmpty(&nstk))
-					return;
-			}
+			no++;
 		} while (sw == 2);
 	}
 
-	Terminate(&nstk);
+	Terminate(&xstk);
+	Terminate(&ystk);
 	Terminate(&sstk);
 }
 
 int main(void)
 {
-	int x;
-
-	printf("정수를 입력하세요. : ");
-	scanf("%d", &x);
-
-	recur3(x);
-
-	return 0;
+    int n;
+    printf("하노이의 탑\n원반 개수: ");
+    scanf("%d", &n);
+    move(n, 1, 3);
+    return 0;
 }
