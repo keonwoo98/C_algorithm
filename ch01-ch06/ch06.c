@@ -359,21 +359,111 @@
 // }
 
 // 실습 6-4
+// #define swap(type, x, y) do{type t = x; x = y; y = t;} while(0)
+
+// void selection(int a[], int n)
+// {
+//     int i, j;
+//     for(i = 0; i < n - 1; i++)
+//     {
+//         int min = i;
+//         for(j = i + 1; j < n; j++)
+//             if(a[j] < a[min])
+//                 min = j;
+                
+//         swap(int, a[i], a[min]);
+//     }
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+
+//     x = calloc(nx, sizeof(int));
+
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+    
+//     selection(x, nx);
+//     puts("오름차순으로 정렬");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] : %d\n", i, x[i]);
+    
+//     free(x);
+//     return 0;
+// }
+
+// 실습 6-5
+// void insertion(int a[], int n)
+// {
+//     int i, j;
+//     for(i = 1; i < n; i++)
+//     {
+//         int tmp = a[i];
+//         for(j = i; j > 0 && a[j - 1] > tmp; j--)
+//             a[j] = a[j - 1];
+//         a[j] = tmp;
+//     }
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+//     puts("단순 삽입 정렬");
+
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+
+//     insertion(x, nx);
+
+//     puts("오름차순으로 정렬했습니다");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] = %d\n", i, x[i]);
+
+//     free(x);
+//     return 0;
+// }
+
+// Q7
 #define swap(type, x, y) do{type t = x; x = y; y = t;} while(0)
-#define SWAP(x, y, temp) ((temp) = (x), (x) = (y), (y) = (temp))
 
 void selection(int a[], int n)
 {
-    int i, j;
+    int i, j, m;
     for(i = 0; i < n - 1; i++)
     {
         int min = i;
         for(j = i + 1; j < n; j++)
             if(a[j] < a[min])
                 min = j;
+
+        for(m = 0; m < n; m++)
+            printf((m == i) ? "  * " : (m == min) ? "  + " : "    ");
+        putchar('\n');
+        for(m = 0; m < n; m++)
+            printf("%3d ", a[m]);
+        putchar('\n');
                 
         swap(int, a[i], a[min]);
     }
+    for(m = 0; m < n; m++)
+            printf("%3d ", a[m]);
+        putchar('\n');
 }
 
 int main(void)
@@ -391,12 +481,11 @@ int main(void)
         printf("x[%d] : ", i);
         scanf("%d", &x[i]);
     }
-    
     selection(x, nx);
-    puts("오름차순으로 정렬");
+    puts("오름차순으로 정렬했습니다");
     for(i = 0; i < nx; i++)
-        printf("x[%d] : %d\n", i, x[i]);
-    
+        printf("x[%d] = %d\n", i, x[i]);
+
     free(x);
     return 0;
 }
