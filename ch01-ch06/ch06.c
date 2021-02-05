@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 // 실습 6-1
 // #define swap(type, x, y) do{ type t = x; x = y; y = t; } while(0)
@@ -440,52 +441,252 @@
 // }
 
 // Q7
-#define swap(type, x, y) do{type t = x; x = y; y = t;} while(0)
+// #define swap(type, x, y) do{type t = x; x = y; y = t;} while(0)
 
-void selection(int a[], int n)
-{
-    int i, j, m;
-    for(i = 0; i < n - 1; i++)
-    {
-        int min = i;
-        for(j = i + 1; j < n; j++)
-            if(a[j] < a[min])
-                min = j;
+// void selection(int a[], int n)
+// {
+//     int i, j, m;
+//     for(i = 0; i < n - 1; i++)
+//     {
+//         int min = i;
+//         for(j = i + 1; j < n; j++)
+//             if(a[j] < a[min])
+//                 min = j;
 
-        for(m = 0; m < n; m++)
-            printf((m == i) ? "  * " : (m == min) ? "  + " : "    ");
-        putchar('\n');
-        for(m = 0; m < n; m++)
-            printf("%3d ", a[m]);
-        putchar('\n');
+//         for(m = 0; m < n; m++)
+//             printf((m == i) ? "  * " : (m == min) ? "  + " : "    ");
+//         putchar('\n');
+//         for(m = 0; m < n; m++)
+//             printf("%3d ", a[m]);
+//         putchar('\n');
                 
-        swap(int, a[i], a[min]);
-    }
-    for(m = 0; m < n; m++)
-            printf("%3d ", a[m]);
-        putchar('\n');
+//         swap(int, a[i], a[min]);
+//     }
+//     for(m = 0; m < n; m++)
+//             printf("%3d ", a[m]);
+//         putchar('\n');
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+
+//     x = calloc(nx, sizeof(int));
+
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+//     selection(x, nx);
+//     puts("오름차순으로 정렬했습니다");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] = %d\n", i, x[i]);
+
+//     free(x);
+//     return 0;
+// }
+
+// Q8
+// void insertion(int a[], int n)
+// {
+//     int i, j, m;
+//     for(i = 1; i < n; i++)
+//     {
+//         int tmp = a[i];
+
+//         for(m = 0; m < n; m++)
+//             printf("%3d", a[m]);
+//         putchar('\n');
+
+//         for(j = i; j > 0 && a[j - 1] > tmp; j--)
+//             a[j] = a[j - 1];
+//         a[j] = tmp;
+
+//         printf("%*s%s", 3 * j, "", (i != j) ? " ^-" : "  ");
+//         for(m = 1; m < 3 * (i - j); m++)
+//             putchar('-');
+//         printf("+\n\n");
+//     }
+//     for(m = 0; m < n; m++)
+//         printf("%3d", a[m]);
+//     putchar('\n');
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+//     puts("단순 삽입 정렬");
+
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+
+//     insertion(x, nx);
+
+//     puts("\n오름차순 정렬");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] : %d\n", i, x[i]);
+    
+//     free(x);
+//     return 0;
+// }
+
+// Q9
+// void insertion(int a[], int n)
+// {
+//     int i, j;
+//     for(i = 1; i < n; i++)
+//     {
+//         int tmp = a[0] = a[i];
+//         for(j = i; a[j - 1] > tmp; j--)
+//             a[j] = a[j - 1];
+//         if(j)
+//             a[j] = tmp;
+//     }
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int* x;
+//     puts("단순 삽입 정렬");
+    
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx + 1, sizeof(int));
+
+//     for(i = 1; i < nx + 1; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+
+//     insertion(x, nx + 1);
+
+//     puts("\n오름차순으로 정렬");
+//     for(i = 1; i < nx + 1; i++)
+//         printf("x[%d] : %d\n", i, x[i]);
+//     free(x);
+//     return 0;
+// }
+
+// Q10
+// void bin_insertion(int a[], int n)
+// {
+//     int i, j;
+//     for(i = 1; i < n; i++)
+//     {
+//         int key = a[i];
+//         int pl = 0;
+//         int pr = i - 1;
+//         int pc;
+//         int pd;
+
+//         do
+//         {
+//             pc = (pl + pr) / 2;
+//             if(a[pc] == key)
+//                 pl = pc + 1;
+//             else if(a[pc] < key)
+//                 pl = pc + 1;
+//             else
+//                 pr = pc - 1;
+//         } while (pl <= pr);
+        
+//         pd = (pl <=pr) ? pc + 1 : pr + 1;
+
+//         for(j = i; j > pd; j--)
+//             a[j] = a[j - 1];
+//         a[pd] = key;
+//     }
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+//     puts("단순 삽입 정렬");
+
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+
+//     bin_insertion(x, nx);
+
+//     puts("\n오름차순 정렬");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] : %d\n", i, x[i]);
+//     free(x);
+//     return 0;
+// }
+
+// Q11
+void bin_insertion(int a[], int n)
+{
+	int i;
+	for (i = 1; i < n; i++) {
+		int key = a[i];
+		int pl = 0;		
+		int pr = i - 1;	
+		int pc;			
+		int pd;			
+
+		do {
+			pc = (pl + pr) / 2;
+			if (a[pc] == key)		
+				break;
+			else if (a[pc] < key)
+				pl = pc + 1;
+			else
+				pr = pc - 1;
+		} while (pl <= pr);
+		pd = (pl <= pr) ? pc + 1 : pr + 1;
+
+		memmove(&a[pd + 1], &a[pd], (i - pd) * sizeof(int));
+		a[pd] = key;
+	}
 }
 
 int main(void)
 {
-    int i, nx;
-    int *x;
+	int i, nx;
+	int *x;		
 
-    printf("요소 개수 : ");
-    scanf("%d", &nx);
+	puts("이진 삽입 정렬");
+	printf("요솟수 : ");
+	scanf("%d", &nx);
+	x = calloc(nx, sizeof(int));
 
-    x = calloc(nx, sizeof(int));
+	for (i = 0; i < nx; i++) {
+		printf("x[%d] : ", i);
+		scanf("%d", &x[i]);
+	}
 
-    for(i = 0; i < nx; i++)
-    {
-        printf("x[%d] : ", i);
-        scanf("%d", &x[i]);
-    }
-    selection(x, nx);
-    puts("오름차순으로 정렬했습니다");
-    for(i = 0; i < nx; i++)
-        printf("x[%d] = %d\n", i, x[i]);
+	bin_insertion(x, nx);		
 
-    free(x);
-    return 0;
+	puts("오름차순으로 정렬했습니다.");
+	for (i = 0; i < nx; i++)
+		printf("x[%d] = %d\n", i, x[i]);
+
+	free(x);	
+
+	return 0;
 }
