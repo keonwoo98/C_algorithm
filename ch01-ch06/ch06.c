@@ -727,25 +727,322 @@
 // }
 
 // 실습 6-7
-void shell(int a[], int n)
+// void shell(int a[], int n)
+// {
+//     int i, j, h;
+//     for(h = 1; h < n / 9; h = h * 3 + 1)
+//         ;
+//     for(; h > 0; h /= 3)
+//         for(i = h; i < n; i++)
+//         {
+//             int tmp = a[i];
+//             for(j = i - h; j >= 0 && a[j] > tmp; j -= h)
+//                 a[j + h] = a[j];
+//             a[j + h] = tmp;
+//         }
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+//     puts("셀 정렬");
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+//     shell(x, nx);
+//     puts("오름차순으로 정렬했습니다.");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] = %d\n", i, x[i]);
+//     free(x);
+//     return 0;
+// }
+
+// Q12-1
+// int shell(int a[], int n)
+// {
+//     int i, j, h;
+//     int cnt = 0;
+//     for(h = n / 2; h > 0; h /= 2)
+//         for(i = h; i < n; i++)
+//         {
+//             int tmp = a[i];
+//             for(j = i - h; j >= 0 && a[j] > tmp; j -= h)
+//             {
+//                 a[j + h] = a[j];
+//                 cnt++;
+//             }
+//             a[j + h] = tmp;
+//             cnt++;
+//         }
+//     return cnt;
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int count;
+//     int *x;
+//     puts("셀 정렬");
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+//     count = shell(x, nx);
+//     puts("오름차순으로 정렬했습니다.");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] = %d\n", i, x[i]);
+//     printf("이동 횟수 : %d", count);
+//     free(x);
+//     return 0;
+// }
+
+// Q12-2
+// int shell(int a[], int n)
+// {
+//     int i, j, h;
+//     int cnt = 0;
+
+//     for(h = 1; h < n / 9; h = h * 3 + 1)
+//         ;
+//     for(; h > 0; h /= 3)
+//         for(i = h; i < n; i++)
+//         {
+//             int tmp = a[i];
+//             for(j = i - h; j >= 0 && a[j] > tmp; j -= h)
+//             {
+//                 a[j + h] = a[j];
+//                 cnt++;
+//             }
+//             a[j + h] = tmp;
+//             cnt++;            
+//         }
+//     return cnt;
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int count;
+//     int *x;
+//     puts("셀 정렬");
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+//     count = shell(x, nx);
+//     puts("오름차순으로 정렬했습니다.");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] = %d\n", i, x[i]);
+//     printf("이동 횟수 : %d", count);
+//     free(x);
+//     return 0;
+// }
+
+// 실습 6-8
+// #define swap(type, x, y) do{type t = x; x = y; y = t;} while(0)
+
+// void partition(int a[], int n)
+// {
+//     int i;
+//     int pl = 0;
+//     int pr = n - 1;
+//     int x = a[n / 2];
+//     do
+//     {
+//         while(a[pl] < x) pl++;
+//         while(a[pr] > x) pr--;
+//         if(pl <= pr)
+//         {
+//             swap(int, a[pl], a[pr]);
+//             pl++;
+//             pr--;
+//         }
+//     } while (pl <= pr);
+//     printf("피벗의 값은 %d\n", x);
+//     printf("피벗 이하의 그룹\n");
+//     for(i = 0; i <= pl - 1; i++)
+//         printf("%d ", a[i]);
+//     putchar('\n');
+
+//     if(pl > pr + 1)
+//     {
+//         printf("피벗과 일치하는 그룹\n");
+//         for(i = pr + 1; i <= pl - 1; i++)
+//             printf("%d ", a[i]);
+//         putchar('\n');
+//     }
+
+//     printf("피벗 이상의 그룹\n");
+//     for(i = pr + 1; i < n; i++)
+//         printf("%d ", a[i]);
+//     putchar('\n');
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+//     puts("배열을 나눕니다.");
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+//     partition(x, nx);
+//     free(x);
+//     return 0;
+// }
+
+// 실습 6-9
+// #define swap(type, x, y) do{type t = x; x = y; y = t;} while(0)
+
+// void quick(int a[], int left, int right)
+// {
+//     int pl = left;
+//     int pr = right;
+//     int x = a[(pl + pr) / 2];
+//     do
+//     {
+//         while(a[pl] < x) pl++;
+//         while(a[pr] > x) pr--;
+//         if(pl <= pr)
+//         {
+//             swap(int, a[pl], a[pr]);
+//             pl++;
+//             pr--;
+//         }
+//     } while (pl <= pr);
+//     if(left < pr) quick(a, left, pr);
+//     if(pl < right) quick(a, pl, right);    
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+//     puts("퀵 정렬");
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+
+//     quick(x, 0, nx - 1);
+//     puts("오름차순으로 정렬");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] = %d\n", i, x[i]);
+    
+//     free(x);
+//     return 0;
+// }
+
+// Q13
+// #define swap(type, x, y) do{type t = x; x = y; y = t;} while(0)
+
+// void quick(int a[], int left, int right)
+// {
+//     int pl = left;
+//     int pr = right;
+//     int x = a[(pl + pr) / 2];
+//     do
+//     {
+//         while(a[pl] < x) pl++;
+//         while(a[pr] > x) pr--;
+//         if(pl <= pr)
+//         {
+//             swap(int, a[pl], a[pr]);
+//             pl++;
+//             pr--;
+//         }
+//     } while (pl <= pr);
+//     if(left < pr) quick(a, left, pr);
+//     if(pl < right) quick(a, pl, right);    
+// }
+
+// void quick_sort(int a[], int n)
+// {
+//     quick(a, 0, n - 1);
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+//     puts("퀵 정렬");
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+
+//     quick_sort(x, nx);
+//     puts("오름차순으로 정렬");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] = %d\n", i, x[i]);
+    
+//     free(x);
+//     return 0;
+// }
+
+// 실습 6C-1
+#define swap(type, x, y) do{type t = x; x = y; y = t;} while(0)
+
+void quick(int a[], int left, int right)
 {
-    int i, j, h;
-    for(h = 1; h < n / 9; h = h * 3 + 1);
-    for(; h > 0; h /= 3)
-        for(i = h; i < n; i++)
+    int pl = left;
+    int pr = right;
+    int x = a[(pl + pr) / 2];
+
+    int i;
+    printf("a[%d] ~ a[%d] : { ", left, right);
+    for(i = left; i < right; i++)
+        printf("%d, ", a[i]);
+    printf("%d }\n", a[right]);
+
+    do
+    {
+        while(a[pl] < x) pl++;
+        while(a[pr] > x) pr--;
+        if(pl <= pr)
         {
-            int tmp = a[i];
-            for(j = i - h; j >= 0 && a[j] > tmp; j -= h)
-                a[j + h] = a[j];
-            a[j + h] = tmp;
+            swap(int, a[pl], a[pr]);
+            pl++;
+            pr--;
         }
+    } while (pl <= pr);
+    
+    if(left < pr) quick(a, left, pr);
+    if(pl < right) quick(a, pl, right);
 }
 
 int main(void)
 {
     int i, nx;
     int *x;
-    puts("셀 정렬");
+    puts("퀵 정렬");
     printf("요소 개수 : ");
     scanf("%d", &nx);
     x = calloc(nx, sizeof(int));
@@ -754,10 +1051,12 @@ int main(void)
         printf("x[%d] : ", i);
         scanf("%d", &x[i]);
     }
-    shell(x, nx);
-    puts("오름차순으로 정렬했습니다.");
+
+    quick(x, 0, nx - 1);
+    puts("오름차순으로 정렬");
     for(i = 0; i < nx; i++)
         printf("x[%d] = %d\n", i, x[i]);
+    
     free(x);
     return 0;
 }
