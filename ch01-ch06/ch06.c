@@ -1100,7 +1100,7 @@ void quick(int a[], int left, int right)
         if(pl < right)
         {
             Push(&lstack, pl);
-            Push(&rstack, pr);
+            Push(&rstack, right);
         }
     }
     Terminate(&lstack);
