@@ -1131,8 +1131,236 @@
 // }
 
 // Q14
+// #include "IntStack.h"
+// #define swap(type, x, y) do{type t = x; x = y; y = t;} while(0)
+
+// void quick(int a[], int left, int right)
+// {
+//     IntStack lstack;
+//     IntStack rstack;
+
+//     Initialize(&lstack, right - left + 1);
+//     Initialize(&rstack, right - left + 1);
+
+//     Push(&lstack, left);
+//     Push(&rstack, right);
+
+//     printf("a[%d] ~  a[%d]를 스택에 푸쉬합니다.\n", left, right);
+//     printf("Lstack : "); Print(&lstack);
+//     printf("Rstack : "); Print(&rstack);
+
+//     while(!IsEmpty(&lstack))
+//     {
+//         int pl = (Pop(&lstack, &left), left);
+//         int pr = (Pop(&rstack, &right), right);
+//         int x = a[(left + right) / 2];
+
+//         printf("=================================================\n");
+//         printf("스택에서 꺼낸 배열의 범위는 a[%d] ~ a[%d]입니다.\n", left, right);
+//         printf("=================================================\n");
+
+//         do
+//         {
+//             while(a[pl] < x) pl++;
+//             while(a[pr] > x) pr--;
+//             if(pl <= pr)
+//             {
+//                 swap(int, a[pl], a[pr]);
+//                 pl++;
+//                 pr--;
+//             }
+//         } while (pl <= pr);
+        
+//         if(left < pr)
+//         {
+//             Push(&lstack, left);
+//             Push(&rstack, pr);
+
+//             printf("a[%d] ~ a[%d]를 스택에 푸쉬합니다.\n", left, pr);
+//             printf("Lstack : "); Print(&lstack);
+//             printf("Rstack : "); Print(&rstack);
+//         }
+//         if(pl < right)
+//         {
+//             Push(&lstack, pl);
+//             Push(&rstack, right);
+
+//             printf("a[%d] ~ a[%d]를 스택에 푸쉬합니다.\n", pl, right);
+//             printf("Lstack : "); Print(&lstack);
+//             printf("Rstack : "); Print(&rstack);
+//         }
+//     }
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+
+//     puts("퀵 정렬");
+//     printf("요솟수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+
+//     quick(x, 0, nx - 1);
+//     puts("오름차순 정렬");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] : %d\n", i, x[i]);
+    
+//     free(x);
+//     return 0;
+// }
+
+// Q15-1
+// #define swap(type, x, y) do{type t = x; x = y; y = t;} while(0)
+
+// void quick(int a[], int left, int right)
+// {
+//     int pl = left;
+//     int pr = right;
+//     int x = a[(pl + pr) / 2];
+//     do
+//     {
+//         while(a[pl] < x) pl++;
+//         while(a[pr] > x) pr--;
+//         if(pl <= pr)
+//         {
+//             swap(int, a[pl], a[pr]);
+//             pl++;
+//             pr--;
+//         }
+//     } while (pl <= pr);
+
+//     if(pr - left < right - pl)
+//     {
+//         swap(int, pl, left);
+//         swap(int, pr, right);
+//     }
+
+//     if(left < pr) quick(a, left, pr);
+//     if(pl < right) quick(a, pl, right);    
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+//     puts("퀵 정렬");
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+
+//     quick(x, 0, nx - 1);
+//     puts("오름차순으로 정렬");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] = %d\n", i, x[i]);
+    
+//     free(x);
+//     return 0;
+// }
+
+// Q15-2
+// #include "IntStack.h"
+// #define swap(type, x, y) do{type t = x; x = y; y = t;} while(0)
+
+// void quick(int a[], int left, int right)
+// {
+//     IntStack lstack;
+//     IntStack rstack;
+
+//     Initialize(&lstack, right - left + 1);
+//     Initialize(&rstack, right - left + 1);
+
+//     Push(&lstack, left);
+//     Push(&rstack, right);
+
+//     while(!IsEmpty(&lstack))
+//     {
+//         int pl = (Pop(&lstack, &left), left);
+//         int pr = (Pop(&rstack, &right), right);
+//         int x = a[(left + right) / 2];
+
+//         do
+//         {
+//             while(a[pl] < x) pl++;
+//             while(a[pr] > x) pr--;
+//             if(pl <= pr)
+//             {
+//                 swap(int, a[pl], a[pr]);
+//                 pl++;
+//                 pr--;
+//             }
+//         } while (pr <= pl);
+        
+//         if(pr - left < right -pl)
+//         {
+//             swap(int, pl, left);
+//             swap(int, pr, right);
+//         }
+//         if(left < pr)
+//         {
+//             Push(&lstack, left);
+//             Push(&rstack, pr);
+//         }
+//         if(pl < right)
+//         {
+//             Push(&lstack, pl);
+//             Push(&rstack, right);
+//         }
+//     }
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+
+//     puts("퀵 정렬");
+//     printf("요솟수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+
+//     quick(x, 0, nx - 1);
+//     puts("오름차순 정렬");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] : %d\n", i, x[i]);
+    
+//     free(x);
+//     return 0;
+// }
+
+// Q16
 #include "IntStack.h"
 #define swap(type, x, y) do{type t = x; x = y; y = t;} while(0)
+
+void insertion(int a[], int n)
+{
+    int i, j;
+    for(i = 1; i < n; i++)
+    {
+        int tmp = a[i];
+        for(j = i; j > 0 && a[j - 1] > tmp; j--)
+            a[j] = a[j -1];
+        a[j] = tmp;
+    }
+}
 
 void quick(int a[], int left, int right)
 {
@@ -1145,9 +1373,6 @@ void quick(int a[], int left, int right)
     Push(&lstack, left);
     Push(&rstack, right);
 
-    printf("a[%d] ~  a[%d]를 스택에 푸쉬합니다.\n", left, right);
-    printf("Lstack : "); Print(&lstack);
-    printf("Rstack : "); Print(&rstack);
 
     while(!IsEmpty(&lstack))
     {
@@ -1155,39 +1380,37 @@ void quick(int a[], int left, int right)
         int pr = (Pop(&rstack, &right), right);
         int x = a[(left + right) / 2];
 
-        printf("=================================================\n");
-        printf("스택에서 꺼낸 배열의 범위는 a[%d] ~ a[%d]입니다.\n", left, right);
-        printf("=================================================\n");
+        if(right - left < 9)
+            insertion(&a[left], right - left + 1);
 
-        do
-        {
-            while(a[pl] < x) pl++;
-            while(a[pr] > x) pr--;
-            if(pl <= pr)
+        else {
+            do
             {
-                swap(int, a[pl], a[pr]);
-                pl++;
-                pr--;
+                while(a[pl] < x) pl++;
+                while(a[pr] > x) pr--;
+                if(pl <= pr)
+                {
+                    swap(int, a[pl], a[pr]);
+                    pl++;
+                    pr--;
+                }
+            } while (pr <= pl);
+            
+            if(pr - left < right -pl)
+            {
+                swap(int, pl, left);
+                swap(int, pr, right);
             }
-        } while (pl <= pr);
-        
-        if(left < pr)
-        {
-            Push(&lstack, left);
-            Push(&rstack, pr);
-
-            printf("a[%d] ~ a[%d]를 스택에 푸쉬합니다.\n", left, pr);
-            printf("Lstack : "); Print(&lstack);
-            printf("Rstack : "); Print(&rstack);
-        }
-        if(pl < right)
-        {
-            Push(&lstack, pl);
-            Push(&rstack, right);
-
-            printf("a[%d] ~ a[%d]를 스택에 푸쉬합니다.\n", pl, right);
-            printf("Lstack : "); Print(&lstack);
-            printf("Rstack : "); Print(&rstack);
+            if(left < pr)
+            {
+                Push(&lstack, left);
+                Push(&rstack, pr);
+            }
+            if(pl < right)
+            {
+                Push(&lstack, pl);
+                Push(&rstack, right);
+            }
         }
     }
 }
