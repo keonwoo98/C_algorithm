@@ -1346,96 +1346,573 @@
 //     return 0;
 // }
 
-// Q16
-#include "IntStack.h"
-#define swap(type, x, y) do{type t = x; x = y; y = t;} while(0)
+// Q16-1
+// #define swap(type, x, y) do { type t = x; x = y; y = t; } while (0)
 
-void insertion(int a[], int n)
+// /*--- 단순 삽입 정렬 ---*/
+// void insertion(int a[], int n)
+// {
+// 	int i, j;
+
+// 	for (i = 1; i < n; i++) {
+// 		int tmp = a[i];
+// 		for (j = i; j > 0 && a[j - 1] > tmp; j--)
+// 			a[j] = a[j - 1];
+// 		a[j] = tmp;
+// 	}
+// }
+
+// /*--- 퀵 정렬 (요솟수가 9개 이하면 단순 삽입 정렬로 전환 : 재귀 버전) ---*/
+// void quick(int a[], int left, int right)
+// {
+// 	if (right - left < 9)
+// 		insertion(&a[left], right - left + 1);
+// 	else {
+// 		int pl = left;				
+// 		int pr = right;				
+// 		int x = a[(pl + pr) / 2];	
+
+// 		do {
+// 			while (a[pl] < x) pl++;
+// 			while (a[pr] > x) pr--;
+// 			if (pl <= pr) {
+// 				swap(int, a[pl], a[pr]);
+// 				pl++;
+// 				pr--;
+// 			}
+// 		} while (pl <= pr);
+
+// 		if (pr - left < right - pl) {
+// 			swap(int, pl, left);
+// 			swap(int, pr, right);
+// 		}
+// 		if (left < pr)  quick(a, left, pr);
+// 		if (pl < right) quick(a, pl, right);
+// 	}
+// }
+
+// int main(void)
+// {
+// 	int i, nx;
+// 	int *x;		
+
+// 	puts("퀵 정렬");
+// 	printf("요솟수 : ");
+// 	scanf("%d", &nx);
+// 	x = calloc(nx, sizeof(int));
+
+// 	for (i = 0; i < nx; i++) {
+// 		printf("x[%d] : ", i);
+// 		scanf("%d", &x[i]);
+// 	}
+
+// 	quick(x, 0, nx - 1);
+
+// 	puts("오름차순으로 정렬했습니다.");
+// 	for (i = 0; i < nx; i++)
+// 		printf("x[%d] = %d\n", i, x[i]);
+
+// 	free(x);	
+
+// 	return 0;
+// }
+
+// Q16-2
+// #include "IntStack.h"
+
+// #define swap(type, x, y) do { type t = x; x = y; y = t; } while (0)
+
+// void insertion(int a[], int n)
+// {
+// 	int i, j;
+
+// 	for (i = 1; i < n; i++) {
+// 		int tmp = a[i];
+// 		for (j = i; j > 0 && a[j - 1] > tmp; j--)
+// 			a[j] = a[j - 1];
+// 		a[j] = tmp;
+// 	}
+// }
+
+// void quick(int a[], int left, int right)
+// {
+// 	IntStack lstack;		
+// 	IntStack rstack;		
+
+// 	Initialize(&lstack, right - left + 1);
+// 	Initialize(&rstack, right - left + 1);
+
+// 	Push(&lstack, left);
+// 	Push(&rstack, right);
+
+// 	while (!IsEmpty(&lstack)) {
+// 		int pl = (Pop(&lstack, &left), left);		
+// 		int pr = (Pop(&rstack, &right), right);		
+// 		int x = a[(left + right) / 2];				
+
+// 		if (right - left < 9)
+// 			insertion(&a[left], right - left + 1);
+// 		else {
+// 			do {
+// 				while (a[pl] < x) pl++;
+// 				while (a[pr] > x) pr--;
+// 				if (pl <= pr) {
+// 					swap(int, a[pl], a[pr]);
+// 					pl++;
+// 					pr--;
+// 				}
+// 			} while (pl <= pr);
+
+// 			if (pr - left < right - pl) {
+// 				swap(int, pl, left);
+// 				swap(int, pr, right);
+// 			}
+// 			if (left < pr) {
+// 				Push(&lstack, left);
+// 				Push(&rstack, pr);	
+// 			}
+// 			if (pl < right) {
+// 				Push(&lstack, pl);	
+// 				Push(&rstack, right);
+// 			}
+// 		}
+// 	}
+// }
+
+// int main(void)
+// {
+// 	int i, nx;
+// 	int *x;	
+
+// 	puts("퀵 정렬");
+// 	printf("요솟수 : ");
+// 	scanf("%d", &nx);
+// 	x = calloc(nx, sizeof(int));
+
+// 	for (i = 0; i < nx; i++) {
+// 		printf("x[%d] : ", i);
+// 		scanf("%d", &x[i]);
+// 	}
+
+// 	quick(x, 0, nx - 1);	
+
+// 	puts("오름차순으로 정렬했습니다.");
+// 	for (i = 0; i < nx; i++)
+// 		printf("x[%d] = %d\n", i, x[i]);
+
+// 	free(x);
+
+// 	return 0;
+// }
+
+// Q17-1
+// #define swap(type, x, y) do { type t = x; x = y; y = t; } while (0)
+
+// int med3(int a, int b, int c)
+// {
+//     if(a >= b)
+//         if(b >= c)
+//             return b;
+//         else if(a <= c)
+//             return a;
+//         else
+//             return c;
+//     else if(a > c)
+//         return a;
+//     else if(b > c)
+//         return c;
+//     else
+//         return b;
+// }
+
+// void insertion(int a[], int n)
+// {
+//     int i, j;
+//     for(i = 1; i < n; i++)
+//     {
+//         int tmp = a[i];
+//         for(j = i; j > 0 && a[j - 1] > tmp; j--)
+//             a[j] = a[j - 1];
+//         a[j] = tmp;
+//     }
+// }
+
+// void quick(int a[], int left, int right)
+// {
+//     if(right - left < 9)
+//         insertion(&a[left], right - left + 1);
+//     else
+//     {
+//         int pl = left;
+//         int pr = right;
+//         int x = med3(a[pl], a[(pl + pr) / 2], a[pr]);
+
+//         do
+//         {
+//             while(a[pl] < x) pl++;
+//             while(a[pr] > x) pr--;
+//             if(pl <= pr)
+//             {
+//                 swap(int, a[pl], a[pr]);
+//                 pl++;
+//                 pr--;
+//             }
+//         } while (pl <= pr);
+        
+//         if(pr - left < right - pl)
+//         {
+//             swap(int, pl, left);
+//             swap(int, pr, right);
+//         }
+//         if(left < pr) quick(a, left, pr);
+//         if(pl < right) quick(a, pl, right);
+//     }
+// }
+
+// int main(void)
+// {
+// 	int i, nx;
+// 	int *x;	
+
+// 	puts("퀵 정렬");
+// 	printf("요솟수 : ");
+// 	scanf("%d", &nx);
+// 	x = calloc(nx, sizeof(int));
+
+// 	for (i = 0; i < nx; i++) {
+// 		printf("x[%d] : ", i);
+// 		scanf("%d", &x[i]);
+// 	}
+
+// 	quick(x, 0, nx - 1);
+
+// 	puts("오름차순으로 정렬했습니다.");
+// 	for (i = 0; i < nx; i++)
+// 		printf("x[%d] = %d\n", i, x[i]);
+
+// 	free(x);
+
+// 	return 0;
+// }
+
+// Q17-2
+// #include "IntStack.h"
+
+// #define swap(type, x, y) do { type t = x; x = y; y = t; } while (0)
+
+// int med3(int a, int b, int c)
+// {
+//     if(a >= b)
+//         if(b >= c)
+//             return b;
+//         else if(a <= c)
+//             return a;
+//         else
+//             return c;
+//     else if(a > c)
+//         return a;
+//     else if(b > c)
+//         return c;
+//     else
+//         return b;
+// }
+
+// void insertion(int a[], int n)
+// {
+// 	int i, j;
+
+// 	for (i = 1; i < n; i++) {
+// 		int tmp = a[i];
+// 		for (j = i; j > 0 && a[j - 1] > tmp; j--)
+// 			a[j] = a[j - 1];
+// 		a[j] = tmp;
+// 	}
+// }
+
+// void quick(int a[], int left, int right)
+// {
+// 	IntStack lstack;		
+// 	IntStack rstack;		
+
+// 	Initialize(&lstack, right - left + 1);
+// 	Initialize(&rstack, right - left + 1);
+
+// 	Push(&lstack, left);
+// 	Push(&rstack, right);
+
+// 	while (!IsEmpty(&lstack)) {
+// 		int pl = (Pop(&lstack, &left), left);		
+// 		int pr = (Pop(&rstack, &right), right);		
+// 		int x = med3(a[pl], a[(pl + pr) / 2], a[pr]);			
+
+// 		if (right - left < 9)
+// 			insertion(&a[left], right - left + 1);
+// 		else {
+// 			do {
+// 				while (a[pl] < x) pl++;
+// 				while (a[pr] > x) pr--;
+// 				if (pl <= pr) {
+// 					swap(int, a[pl], a[pr]);
+// 					pl++;
+// 					pr--;
+// 				}
+// 			} while (pl <= pr);
+
+// 			if (pr - left < right - pl) {
+// 				swap(int, pl, left);
+// 				swap(int, pr, right);
+// 			}
+// 			if (left < pr) {
+// 				Push(&lstack, left);
+// 				Push(&rstack, pr);	
+// 			}
+// 			if (pl < right) {
+// 				Push(&lstack, pl);	
+// 				Push(&rstack, right);
+// 			}
+// 		}
+// 	}
+// }
+
+// int main(void)
+// {
+// 	int i, nx;
+// 	int *x;	
+
+// 	puts("퀵 정렬");
+// 	printf("요솟수 : ");
+// 	scanf("%d", &nx);
+// 	x = calloc(nx, sizeof(int));
+
+// 	for (i = 0; i < nx; i++) {
+// 		printf("x[%d] : ", i);
+// 		scanf("%d", &x[i]);
+// 	}
+
+// 	quick(x, 0, nx - 1);	
+
+// 	puts("오름차순으로 정렬했습니다.");
+// 	for (i = 0; i < nx; i++)
+// 		printf("x[%d] = %d\n", i, x[i]);
+
+// 	free(x);
+
+// 	return 0;
+// }
+
+// Q18-1
+// #include "IntStack.h"
+// #define swap(type, x, y) do{type t = x; x = y; y = t;} while(0)
+
+// int sort3elem(int x[], int a, int b, int c)
+// {
+//     if(x[b] < x[a]) swap(int, x[b], x[a]);
+//     if(x[c] < x[b]) swap(int, x[c], x[b]);
+//     if(x[b] < x[a]) swap(int, x[b], x[a]);
+//     return b;
+// }
+
+// void insertion(int a[], int n)
+// {
+// 	int i, j;
+
+// 	for (i = 1; i < n; i++) {
+// 		int tmp = a[i];
+// 		for (j = i; j > 0 && a[j - 1] > tmp; j--)
+// 			a[j] = a[j - 1];
+// 		a[j] = tmp;
+// 	}
+// }
+
+// void quick(int a[], int left, int right)
+// {
+// 	if (right - left < 9)
+// 		insertion(&a[left], right - left + 1);
+// 	else {
+// 		int pl = left;
+// 		int pr = right;
+// 		int x;
+// 		int m = sort3elem(a, pl, (pl + pr) / 2, pr);
+// 		x = a[m];
+// 		swap(int, a[m], a[right - 1]);
+// 		pl++;
+// 		pr -= 2;
+
+// 		do {
+// 			while (a[pl] < x) pl++;
+// 			while (a[pr] > x) pr--;
+// 			if (pl <= pr) {
+// 				swap(int, a[pl], a[pr]);
+// 				pl++;
+// 				pr--;
+// 			}
+// 		} while (pl <= pr);
+
+// 		if (pr - left < right - pl) {
+// 			swap(int, pl, left);
+// 			swap(int, pr, right);
+// 		}
+// 		if (left < pr)  quick(a, left, pr);
+// 		if (pl < right) quick(a, pl, right);
+// 	}
+// }
+
+// int main(void)
+// {
+// 	int i, nx;
+// 	int *x;		
+
+// 	puts("퀵 정렬");
+// 	printf("요솟수 : ");
+// 	scanf("%d", &nx);
+// 	x = calloc(nx, sizeof(int));
+
+// 	for (i = 0; i < nx; i++) {
+// 		printf("x[%d] : ", i);
+// 		scanf("%d", &x[i]);
+// 	}
+
+// 	quick(x, 0, nx - 1);
+
+// 	puts("오름차순으로 정렬했습니다.");
+// 	for (i = 0; i < nx; i++)
+// 		printf("x[%d] = %d\n", i, x[i]);
+
+// 	free(x);	
+
+// 	return 0;
+// }
+
+// Q18-2
+// #include "IntStack.h"
+
+// #define swap(type, x, y) do { type t = x; x = y; y = t; } while (0)
+
+// int sort3elem(int x[], int a, int b, int c)
+// {
+// 	if (x[b] < x[a]) swap(int, x[b], x[a]);
+// 	if (x[c] < x[b]) swap(int, x[c], x[b]);
+// 	if (x[b] < x[a]) swap(int, x[b], x[a]);
+// 	return b;
+// }
+
+// void insertion(int a[], int n)
+// {
+// 	int i, j;
+
+// 	for (i = 1; i < n; i++) {
+// 		int tmp = a[i];
+// 		for (j = i; j > 0 && a[j - 1] > tmp; j--)
+// 			a[j] = a[j - 1];
+// 		a[j] = tmp;
+// 	}
+// }
+
+// void quick(int a[], int left, int right)
+// {
+// 	IntStack lstack;		
+// 	IntStack rstack;		
+
+// 	Initialize(&lstack, right - left + 1);
+// 	Initialize(&rstack, right - left + 1);
+
+// 	Push(&lstack, left);
+// 	Push(&rstack, right);
+
+// 	while (!IsEmpty(&lstack)) {
+// 		int pl = (Pop(&lstack, &left), left);		
+// 		int pr = (Pop(&rstack, &right), right);		
+// 		int x;										
+
+// 		if (right - left < 9)
+// 			insertion(&a[left], right - left + 1);
+// 		else {
+// 			int m = sort3elem(a, pl, (pl + pr) / 2, pr);
+// 			x = a[m];
+// 			swap(int, a[m], a[right - 1]);
+// 			pl++;
+// 			pr -= 2;
+
+// 			do {
+// 				while (a[pl] < x) pl++;
+// 				while (a[pr] > x) pr--;
+// 				if (pl <= pr) {
+// 					swap(int, a[pl], a[pr]);
+// 					pl++;
+// 					pr--;
+// 				}
+// 			} while (pl <= pr);
+
+// 			if (pr - left < right - pl) {
+// 				swap(int, pl, left);
+// 				swap(int, pr, right);
+// 			}
+// 			if (left < pr) {
+// 				Push(&lstack, left);	
+// 				Push(&rstack, pr);		
+// 			}
+// 			if (pl < right) {
+// 				Push(&lstack, pl);		
+// 				Push(&rstack, right);	
+// 			}
+// 		}
+// 	}
+// }
+
+// int main(void)
+// {
+// 	int i, nx;
+// 	int *x;		
+
+// 	puts("퀵 정렬");
+// 	printf("요솟수 : ");
+// 	scanf("%d", &nx);
+// 	x = calloc(nx, sizeof(int));
+
+// 	for (i = 0; i < nx; i++) {
+// 		printf("x[%d] : ", i);
+// 		scanf("%d", &x[i]);
+// 	}
+
+// 	quick(x, 0, nx - 1);
+
+// 	puts("오름차순으로 정렬했습니다.");
+// 	for (i = 0; i < nx; i++)
+// 		printf("x[%d] = %d\n", i, x[i]);
+
+// 	free(x);	
+
+// 	return 0;
+// }
+
+// 실습 6-11
+int int_cmp(const int *a, const int *b)
 {
-    int i, j;
-    for(i = 1; i < n; i++)
-    {
-        int tmp = a[i];
-        for(j = i; j > 0 && a[j - 1] > tmp; j--)
-            a[j] = a[j -1];
-        a[j] = tmp;
-    }
-}
-
-void quick(int a[], int left, int right)
-{
-    IntStack lstack;
-    IntStack rstack;
-
-    Initialize(&lstack, right - left + 1);
-    Initialize(&rstack, right - left + 1);
-
-    Push(&lstack, left);
-    Push(&rstack, right);
-
-
-    while(!IsEmpty(&lstack))
-    {
-        int pl = (Pop(&lstack, &left), left);
-        int pr = (Pop(&rstack, &right), right);
-        int x = a[(left + right) / 2];
-
-        if(right - left < 9)
-            insertion(&a[left], right - left + 1);
-
-        else {
-            do
-            {
-                while(a[pl] < x) pl++;
-                while(a[pr] > x) pr--;
-                if(pl <= pr)
-                {
-                    swap(int, a[pl], a[pr]);
-                    pl++;
-                    pr--;
-                }
-            } while (pr <= pl);
-            
-            if(pr - left < right -pl)
-            {
-                swap(int, pl, left);
-                swap(int, pr, right);
-            }
-            if(left < pr)
-            {
-                Push(&lstack, left);
-                Push(&rstack, pr);
-            }
-            if(pl < right)
-            {
-                Push(&lstack, pl);
-                Push(&rstack, right);
-            }
-        }
-    }
+    if(*a < *b)
+        return -1;
+    else if(*a > *b)
+        return 1;
+    else
+        return 0;
 }
 
 int main(void)
 {
     int i, nx;
     int *x;
-
-    puts("퀵 정렬");
-    printf("요솟수 : ");
+    printf("qsort에 의한 정렬\n");
+    printf("요소 개수 : ");
     scanf("%d", &nx);
     x = calloc(nx, sizeof(int));
-
     for(i = 0; i < nx; i++)
     {
         printf("x[%d] : ", i);
         scanf("%d", &x[i]);
     }
-
-    quick(x, 0, nx - 1);
-    puts("오름차순 정렬");
+    qsort(x, nx, sizeof(int), (int(*)(const void *, const void *))int_cmp);
+    puts("오름차순으로 정렬했습니다.");
     for(i = 0; i < nx; i++)
-        printf("x[%d] : %d\n", i, x[i]);
-    
+        printf("x[%d] = %d\n", i, x[i]);
     free(x);
     return 0;
 }
