@@ -1886,33 +1886,209 @@
 // }
 
 // 실습 6-11
+// int int_cmp(const int *a, const int *b)
+// {
+//     if(*a < *b)
+//         return -1;
+//     else if(*a > *b)
+//         return 1;
+//     else
+//         return 0;
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+//     printf("qsort에 의한 정렬\n");
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+//     qsort(x, nx, sizeof(int), (int(*)(const void *, const void *))int_cmp);
+//     puts("오름차순으로 정렬했습니다.");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] = %d\n", i, x[i]);
+//     free(x);
+//     return 0;
+// }
+
+// 실습 6-12
+// typedef struct
+// {
+//     char name[10];
+//     int height;
+//     int weight;
+// } Person;
+
+// int npcmp(const Person *x, const Person *y)
+// {
+//     return strcmp(x->name, y->name);
+// }
+// int hpcmp(const Person *x, const Person *y)
+// {
+//     return x->height < y->height ? -1 : x->height > y->height ? 1 : 0;
+// }
+
+// int wpcmp(const Person *x, const Person *y)
+// {
+//     return x->weight < y->weight ? 1 : x->weight > y->weight ? -1 : 0;
+// }
+
+// void print_person(const Person x[], int no)
+// {
+//     int i;
+//     for(i = 0; i < no; i++)
+//         printf("%-10s %dcm %dkg\n", x[i].name, x[i].height, x[i].weight);
+// }
+
+// int main(void)
+// {
+//     Person x[] = {
+//         {"sunmi", 170, 52},
+//         {"yoobin", 180, 70},
+//         {"sohee", 172, 63},
+//         {"jina", 165, 50}
+//     };
+
+//     int nx = sizeof(x) / sizeof(x[0]);
+
+//     puts("정렬 전");
+//     print_person(x, nx);
+
+//     /* 이름 오름차순 정렬 */
+//     qsort(x, nx, sizeof(Person), (int(*)(const void *, const void *)) npcmp);
+//     puts("\n이름 오름차순 정렬 후");
+//     print_person(x, nx);
+
+//     /* 키 오름차순 정렬 */
+//     qsort(x, nx, sizeof(Person), (int(*)(const void *, const void *)) hpcmp);
+//     puts("\n키 오름차순 정렬 후");
+//     print_person(x, nx);
+
+//     /* 몸무게 오름차순 정렬 */
+//     qsort(x, nx, sizeof(Person), (int(*)(const void *, const void *)) wpcmp);
+//     puts("\n몸무게 내림차순 정렬 후");
+//     print_person(x, nx);
+
+//     return 0;
+// }
+
+// Q19
+// void sort_2dstr(char *p, int n1, int n2)
+// {
+//     qsort(p, n1, n2, (int(*)(const void *, const void *)) strcmp);
+// }
+
+// static int pstrcmp(const void *x, const void *y)
+// {
+//     return strcmp(*(const char **)x, *(const char **)y);
+// }
+
+// void sort_pvstr(char *p[], int n)
+// {
+//     qsort(p, n, sizeof(char *), pstrcmp);
+// }
+
+// int main(void)
+// {
+//     int i;
+//     char a[][7] = {"LISP", "C", "Ada", "Pascal"};
+//     char *p[] = {"LISP", "C", "Ada", "Pascal"};
+
+//     sort_2dstr(&a[0][0], 4, 7);
+
+//     sort_pvstr(p, 4);
+
+//     puts("오름차순으로 정렬했습니다.");
+
+//     for(i = 0; i < 4; i++)
+//         printf("a[%d] = %s\n", i, a[i]);
+
+//     for(i = 0; i < 4; i++)
+//         printf("p[%d] = %s\n", i, a[i]);
+
+//     return 0;
+// }
+
+// Q20
+static void memswap(void *x, void *y, size_t n)
+{
+    unsigned char *a = (unsigned char *)x;
+    unsigned char *b = (unsigned char *)y;
+
+    for(; n--; a++, b++)
+    {
+        unsigned char c = *a;
+        *a = *b;
+        *b = c;
+    }
+}
+
+void q_sort(void *base, size_t nmemb, size_t size, int(*compar)(const void *, const void *))
+{
+    if(nmemb > 0)
+    {
+        size_t pl = 0;                      /* 왼쪽 커서 */
+        size_t pr = nmemb - 1;              /* 오른쪽 커서 */
+        size_t pv = nmemb;                  /* 피벗 */
+        size_t pt = (pl + pr) / 2;          /* 피벗 업데이트 */
+        char *v = (char *)base;             /* 첫 번째 요소에 대한 포인터 */
+        char *x;                            /* 피벗에 대한 포인터 */
+
+        do
+        {
+            if(pv != pt) x = &v[(pv = pt) * size];
+            while(compar((const void *)&v[pl * size], x) < 0) pl++;
+            while(compar((const void *)&v[pr * size], x) > 0) pr--;
+            if(pl <= pr)
+            {
+                pt = (pl == pv) ? pr : (pr == pv) ? pl : pv;
+                memswap(&v[pl * size], &v[pr * size], size);
+                pl++;
+                if(pr == 0)
+                    goto QuickRight;
+                pr--;
+            }
+        } while (pl <= pr);
+        
+        if(0 < pr) q_sort(&v[0], pr + 1, size, compar);
+    QuickRight:
+        if(pl < nmemb - 1) q_sort(&v[pl * size], nmemb - pl, size, compar);
+    }
+}
+
 int int_cmp(const int *a, const int *b)
 {
-    if(*a < *b)
-        return -1;
-    else if(*a > *b)
-        return 1;
-    else
-        return 0;
+    return *a < *b ? -1 : *a > *b ? 1 : 0;
 }
 
 int main(void)
 {
     int i, nx;
     int *x;
-    printf("qsort에 의한 정렬\n");
-    printf("요소 개수 : ");
+
+    printf("q_sort 함수로 정렬합니다.\n");
+    printf("요솟수 : ");
     scanf("%d", &nx);
     x = calloc(nx, sizeof(int));
+
     for(i = 0; i < nx; i++)
     {
         printf("x[%d] : ", i);
         scanf("%d", &x[i]);
     }
-    qsort(x, nx, sizeof(int), (int(*)(const void *, const void *))int_cmp);
-    puts("오름차순으로 정렬했습니다.");
+
+    q_sort(x, nx, sizeof(int), (int(*)(const void *, const void *))int_cmp);
+
+    puts("오름차순으로 정렬");
     for(i = 0; i < nx; i++)
-        printf("x[%d] = %d\n", i, x[i]);
+        printf("x[%d] : %d\n", i, x[i]);
+
     free(x);
     return 0;
 }
