@@ -2151,7 +2151,7 @@
 // 실습 6-14
 static int *buff;       /* 작업용 배열 */
 
-static void __mergesort(int a[], int left, int right)
+static void __merge(int a[], int left, int right)
 {
     if(left < right)
     {
@@ -2160,8 +2160,8 @@ static void __mergesort(int a[], int left, int right)
         int i;
         int j = 0;
         int k = left;
-        __mergesort(a, left, center);
-        __mergesort(a, center + 1, right);
+        __merge(a, left, center);
+        __merge(a, center + 1, right);
 
         for(i = left; i <= center; i++)
             buff[p++] = a[i];
@@ -2172,11 +2172,11 @@ static void __mergesort(int a[], int left, int right)
     }
 }
 
-int mergesort(int a[], int n)
+int merge(int a[], int n)
 {
     if((buff = calloc(n, sizeof(int))) == NULL)
         return -1;
-    __mergesort(a, 0, n - 1);
+    __merge(a, 0, n - 1);
     free(buff);
     return 0;  
 }
@@ -2195,7 +2195,7 @@ int main(void)
         printf("x[%d] : ", i);
         scanf("%d", &x[i]);
     }
-    mergesort(x, nx);
+    merge(x, nx);
     puts("오름차순 정렬");
     for(i = 0; i < nx; i++)
         printf("x[%d] : %d\n", i, x[i]);
