@@ -2016,64 +2016,177 @@
 // }
 
 // Q20
-static void memswap(void *x, void *y, size_t n)
-{
-    unsigned char *a = (unsigned char *)x;
-    unsigned char *b = (unsigned char *)y;
+// static void memswap(void *x, void *y, size_t n)
+// {
+//     unsigned char *a = (unsigned char *)x;
+//     unsigned char *b = (unsigned char *)y;
 
-    for(; n--; a++, b++)
-    {
-        unsigned char c = *a;
-        *a = *b;
-        *b = c;
-    }
-}
+//     for(; n--; a++, b++)
+//     {
+//         unsigned char c = *a;
+//         *a = *b;
+//         *b = c;
+//     }
+// }
 
-void q_sort(void *base, size_t nmemb, size_t size, int(*compar)(const void *, const void *))
-{
-    if(nmemb > 0)
-    {
-        size_t pl = 0;                      /* 왼쪽 커서 */
-        size_t pr = nmemb - 1;              /* 오른쪽 커서 */
-        size_t pv = nmemb;                  /* 피벗 */
-        size_t pt = (pl + pr) / 2;          /* 피벗 업데이트 */
-        char *v = (char *)base;             /* 첫 번째 요소에 대한 포인터 */
-        char *x;                            /* 피벗에 대한 포인터 */
+// void q_sort(void *base, size_t nmemb, size_t size, int(*compar)(const void *, const void *))
+// {
+//     if(nmemb > 0)
+//     {
+//         size_t pl = 0;                      /* 왼쪽 커서 */
+//         size_t pr = nmemb - 1;              /* 오른쪽 커서 */
+//         size_t pv = nmemb;                  /* 피벗 */
+//         size_t pt = (pl + pr) / 2;          /* 피벗 업데이트 */
+//         char *v = (char *)base;             /* 첫 번째 요소에 대한 포인터 */
+//         char *x;                            /* 피벗에 대한 포인터 */
 
-        do
-        {
-            if(pv != pt) x = &v[(pv = pt) * size];
-            while(compar((const void *)&v[pl * size], x) < 0) pl++;
-            while(compar((const void *)&v[pr * size], x) > 0) pr--;
-            if(pl <= pr)
-            {
-                pt = (pl == pv) ? pr : (pr == pv) ? pl : pv;
-                memswap(&v[pl * size], &v[pr * size], size);
-                pl++;
-                if(pr == 0)
-                    goto QuickRight;
-                pr--;
-            }
-        } while (pl <= pr);
+//         do
+//         {
+//             if(pv != pt) x = &v[(pv = pt) * size];
+//             while(compar((const void *)&v[pl * size], x) < 0) pl++;
+//             while(compar((const void *)&v[pr * size], x) > 0) pr--;
+//             if(pl <= pr)
+//             {
+//                 pt = (pl == pv) ? pr : (pr == pv) ? pl : pv;
+//                 memswap(&v[pl * size], &v[pr * size], size);
+//                 pl++;
+//                 if(pr == 0)
+//                     goto QuickRight;
+//                 pr--;
+//             }
+//         } while (pl <= pr);
         
-        if(0 < pr) q_sort(&v[0], pr + 1, size, compar);
-    QuickRight:
-        if(pl < nmemb - 1) q_sort(&v[pl * size], nmemb - pl, size, compar);
+//         if(0 < pr) q_sort(&v[0], pr + 1, size, compar);
+//     QuickRight:
+//         if(pl < nmemb - 1) q_sort(&v[pl * size], nmemb - pl, size, compar);
+//     }
+// }
+
+// int int_cmp(const int *a, const int *b)
+// {
+//     return *a < *b ? -1 : *a > *b ? 1 : 0;
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+
+//     printf("q_sort 함수로 정렬합니다.\n");
+//     printf("요솟수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+
+//     q_sort(x, nx, sizeof(int), (int(*)(const void *, const void *))int_cmp);
+
+//     puts("오름차순으로 정렬");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] : %d\n", i, x[i]);
+
+//     free(x);
+//     return 0;
+// }
+
+// 실습 6-13
+// void merge(const int a[], int na, const int b[], int nb, int c[])
+// {
+//     int pa = 0;
+//     int pb = 0;
+//     int pc = 0;
+//     while(pa < na && pb < nb)
+//         c[pc++] = (a[pa] <= b[pb]) ? a[pa++] : b[pb++];
+//     while(pa < na)
+//         c[pc++] = a[pa++];
+//     while(pb < nb)
+//         c[pc++] = b[pb++];
+// }
+
+// int main(void)
+// {
+//     int i, na, nb;
+//     int *a, *b, *c;
+//     printf("a의 요소 개수 : "); scanf("%d", &na);
+//     printf("b의 요소 개수 : "); scanf("%d", &nb);
+//     a = calloc(na, sizeof(int));
+//     b = calloc(nb, sizeof(int));
+//     c = calloc(na + nb, sizeof(int));
+
+//     printf("a[0] : ");
+//     scanf("%d", &a[0]);
+//     for(i = 1; i < na; i++)
+//     {
+//         do
+//         {
+//             printf("a[%d] : ", i);
+//             scanf("%d", &a[i]);
+//         } while (a[i] < a[i - 1]);
+//     }
+
+//     printf("b[0] : ");
+//     scanf("%d", &b[0]);
+//     for(i = 1; i < nb; i++)
+//     {
+//         do
+//         {
+//             printf("b[%d] : ", i);
+//             scanf("%d", &b[i]);
+//         } while (b[i] < b[i - 1]);
+//     }
+
+//     merge(a, na, b, nb, c);
+//     puts("배열 a와 b를 병합하여 배열 c에 저장했습니다.");
+//     for(i = 0; i < na + nb; i++)
+//         printf("c[%d] = %d\n", i, c[i]);
+    
+//     free(a); free(b); free(c);
+//     return 0;
+// }
+
+// 실습 6-14
+static int *buff;       /* 작업용 배열 */
+
+static void __mergesort(int a[], int left, int right)
+{
+    if(left < right)
+    {
+        int center = (left + right) / 2;
+        int p = 0;
+        int i;
+        int j = 0;
+        int k = left;
+        __mergesort(a, left, center);
+        __mergesort(a, center + 1, right);
+
+        for(i = left; i <= center; i++)
+            buff[p++] = a[i];
+        while(i <= right && j < p)
+            a[k++] = (buff[j] <= a[i]) ? buff[j++] : a[i++];
+        while(j < p)
+            a[k++] = buff[j++];
     }
 }
 
-int int_cmp(const int *a, const int *b)
+int mergesort(int a[], int n)
 {
-    return *a < *b ? -1 : *a > *b ? 1 : 0;
+    if((buff = calloc(n, sizeof(int))) == NULL)
+        return -1;
+    __mergesort(a, 0, n - 1);
+    free(buff);
+    return 0;  
 }
 
 int main(void)
 {
     int i, nx;
     int *x;
-
-    printf("q_sort 함수로 정렬합니다.\n");
-    printf("요솟수 : ");
+    puts("병합 정렬");
+    printf("요소 개수 : ");
     scanf("%d", &nx);
     x = calloc(nx, sizeof(int));
 
@@ -2082,13 +2195,11 @@ int main(void)
         printf("x[%d] : ", i);
         scanf("%d", &x[i]);
     }
-
-    q_sort(x, nx, sizeof(int), (int(*)(const void *, const void *))int_cmp);
-
-    puts("오름차순으로 정렬");
+    mergesort(x, nx);
+    puts("오름차순 정렬");
     for(i = 0; i < nx; i++)
         printf("x[%d] : %d\n", i, x[i]);
-
+    
     free(x);
     return 0;
 }
