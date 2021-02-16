@@ -2149,57 +2149,371 @@
 // }
 
 // 실습 6-14
-static int *buff;       /* 작업용 배열 */
+// static int *buff;       /* 작업용 배열 */
 
-static void __merge(int a[], int left, int right)
-{
-    if(left < right)
-    {
-        int center = (left + right) / 2;
-        int p = 0;
-        int i;
-        int j = 0;
-        int k = left;
-        __merge(a, left, center);
-        __merge(a, center + 1, right);
+// static void __merge(int a[], int left, int right)
+// {
+//     if(left < right)
+//     {
+//         int center = (left + right) / 2;
+//         int p = 0;
+//         int i;
+//         int j = 0;
+//         int k = left;
+//         __merge(a, left, center);
+//         __merge(a, center + 1, right);
 
-        for(i = left; i <= center; i++)
-            buff[p++] = a[i];
-        while(i <= right && j < p)
-            a[k++] = (buff[j] <= a[i]) ? buff[j++] : a[i++];
-        while(j < p)
-            a[k++] = buff[j++];
-    }
-}
+//         for(i = left; i <= center; i++)
+//             buff[p++] = a[i];
+//         while(i <= right && j < p)
+//             a[k++] = (buff[j] <= a[i]) ? buff[j++] : a[i++];
+//         while(j < p)
+//             a[k++] = buff[j++];
+//     }
+// }
 
-int merge(int a[], int n)
-{
-    if((buff = calloc(n, sizeof(int))) == NULL)
-        return -1;
-    __merge(a, 0, n - 1);
-    free(buff);
-    return 0;  
-}
+// int merge(int a[], int n)
+// {
+//     if((buff = calloc(n, sizeof(int))) == NULL)
+//         return -1;
+//     __merge(a, 0, n - 1);
+//     free(buff);
+//     return 0;  
+// }
 
-int main(void)
-{
-    int i, nx;
-    int *x;
-    puts("병합 정렬");
-    printf("요소 개수 : ");
-    scanf("%d", &nx);
-    x = calloc(nx, sizeof(int));
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+//     puts("병합 정렬");
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
 
-    for(i = 0; i < nx; i++)
-    {
-        printf("x[%d] : ", i);
-        scanf("%d", &x[i]);
-    }
-    merge(x, nx);
-    puts("오름차순 정렬");
-    for(i = 0; i < nx; i++)
-        printf("x[%d] : %d\n", i, x[i]);
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+//     merge(x, nx);
+//     puts("오름차순 정렬");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] : %d\n", i, x[i]);
     
-    free(x);
-    return 0;
-}
+//     free(x);
+//     return 0;
+// }
+
+// Q21
+// static char *buff;
+
+// void __mergesort(char *a, size_t left, size_t right, size_t size, int(*compar)(const void *, const void *))
+// {
+//     if(left < right)
+//     {
+//         size_t center = (left + right) / 2;
+//         size_t p = 0;
+//         size_t i;
+//         size_t j = 0;
+//         size_t k = left;
+
+//         __mergesort(a, left, center, size, compar);
+//         __mergesort(a, center + 1, right, size, compar);
+
+//         for(i = left; i <= center; i++)
+//             memcpy(&buff[p++ * size], &a[i * size], size);
+        
+//         while(i <= right && j < p)
+//             memcpy(&a[k++ * size], compar((const void *)&buff[j * size], (const void *)&a[i * size]) <= 0 ? &buff[j++ * size] : &a[i++ * size], size);
+
+//         while(j < p)
+//             memcpy(&a[k++ * size], &buff[j++ * size], size);
+//     }
+// }
+
+// void m_sort(void *base, size_t nmemb, size_t size, int(*compar)(const void *, const void *))
+// {
+//     if(nmemb > 0)
+//     {
+//         buff = calloc(nmemb, size);
+//         __mergesort(base, 0, nmemb - 1, size, compar);
+//         free(buff);
+//     }
+// }
+
+// int int_cmp(const int *a, const int *b)
+// {
+//     return *a < *b ? -1 : *a > *b ? 1 : 0;
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+
+//     puts("m_sort 함수로 정렬합니다.");
+//     printf("요솟수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+
+//     for(i = 0; i < nx; i++)
+//     {
+//         printf("x[%d] : ", i);
+//         scanf("%d", &x[i]);
+//     }
+
+//     m_sort(x, nx, sizeof(int), (int(*)(const void *, const void *))int_cmp);
+
+//     puts("오름차순 정렬");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] : %d\n", i, x[i]);
+
+//     free(x);
+//     return 0;
+// }
+
+// Q22
+// #define swap(type, x, y)  do { type t = x; x = y; y = t; } while (0)
+
+// /*--- 2의 n 제곱을 구합니다. ---*/
+// static int pow2(int n)
+// {
+// 	int k = 1;
+
+// 	while (n--)
+// 		k *= 2;
+// 	return (k);
+// }
+
+// /*--- 힙 출력 ---*/
+// static void disp_heap(int a[], int n)
+// {
+// 	int i, w, level;
+// 	int height = 1;		/* 트리의 높이 */
+
+// 	i = n;
+// 	while (i /= 2)
+// 		height++;
+
+// 	i = 0;
+// 	w = 1;
+// 	for (level = 0; level < height; level++) {
+// 		int k;
+// 		printf("%*s", pow2(height - level) - 2, "");
+// 		for (k = 0; k < w; k++) {
+// 			printf("%02d", a[i++]);
+// 			if (i >= n) goto Exit;
+// 			printf("%*s", pow2(height - level + 1) - 2, "");
+// 		}
+// 		putchar('\n');
+
+// 		printf("%*s", pow2(height - level) - 3, "");
+// 		for (k = 0; k < w; k++) {
+// 			if (2 * k + i     < n) printf("／");
+// 			if (2 * k + i + 1 < n) printf("＼");
+// 			printf("%*s", pow2(height - level + 1) - 4, "");
+// 		}
+// 		putchar('\n');
+// 		w *= 2;
+// 	}
+// Exit:
+// 	putchar('\n');
+// 	putchar('\n');
+// }
+
+// /*--- a[left]～a[right]를 힙으로 만듭니다. ---*/
+// static void downheap(int a[], int left, int right)
+// {
+// 	int temp = a[left];				/* 루트 */
+// 	int child;
+// 	int parent;
+
+// 	for (parent = left; parent < (right + 1) / 2; parent = child) {
+// 		int cl = parent * 2 + 1;		/* 왼쪽 자식 */
+// 		int cr = cl + 1;				/* 오른쪽 자식 */
+// 		child = (cr <= right && a[cr] > a[cl]) ? cr : cl;	/* 큰 값을 child에 대입합니다. */
+// 		if (temp >= a[child])
+// 			break;
+// 		a[parent] = a[child];
+// 	}
+// 	a[parent] = temp;
+// }
+
+// /*--- 힙 정렬---*/
+// void heap_sort(int a[], int n)
+// {
+// 	int i;
+
+// 	puts("배열을 힙으로 만듭니다.\n");
+// 	for (i = (n - 1) / 2; i >= 0; i--) {
+// 		disp_heap(a, n);
+// 		downheap(a, i, n - 1);
+// 	}
+
+// 	puts("힙을 기준으로 정렬합니다.\n");
+// 	for (i = n - 1; i > 0; i--) {
+// 		swap(int, a[0], a[i]);
+// 		disp_heap(a, n);
+// 		downheap(a, 0, i - 1);
+// 	}
+// }
+
+// int main(void)
+// {
+// 	int i, nx;
+// 	int *x;		
+
+// 	puts("힙 정렬");
+// 	printf("요솟수 : ");
+// 	scanf("%d", &nx);
+// 	x = calloc(nx, sizeof(int));
+
+// 	for (i = 0; i < nx; i++) {
+// 		printf("x[%d] : ", i);
+// 		scanf("%d", &x[i]);
+// 	}
+
+// 	heap_sort(x, nx);	
+
+// 	puts("오름차순으로 정렬했습니다.");
+// 	for (i = 0; i < nx; i++)
+// 		printf("x[%d] = %d\n", i, x[i]);
+
+// 	free(x);
+
+// 	return 0;
+// }
+
+// Q23
+// void fsort(int a[], int n, int max)
+// {
+//     int i;
+//     int *f = calloc(max + 1, sizeof(int));      /* 누적 도수 */
+//     int *b = calloc(n, sizeof(int));            /* 작업용 배열 */
+
+//     puts("\n정렬 전의 배열");
+//     for(i = 0; i < n; i++) printf("%3d", i);        putchar('\n');
+//     for(i = 0; i < n; i++) printf("---");           putchar('\n');
+//     for(i = 0; i < n; i++) printf("%3d", a[i]);     putchar('\n');
+
+//     for(i = 0; i <= max; i++) f[i] = 0;         /* Step 0 */
+//     for(i = 0; i < n; i++) f[a[i]]++;           /* Step 1 */
+
+//     puts("\n도수 분포");
+//     for(i = 0; i <= max; i++) printf("%3d", i);        putchar('\n');
+//     for(i = 0; i <= max; i++) printf("---");           putchar('\n');
+//     for(i = 0; i <= max; i++) printf("%3d", f[i]);     putchar('\n');
+
+//     for(i = 1; i <= max; i++) f[i] += f[i - 1];     /* Step 2 */
+
+//     puts("\n누적 도수 분포");
+//     for(i = 0; i <= max; i++) printf("%3d", i);        putchar('\n');
+//     for(i = 0; i <= max; i++) printf("---");           putchar('\n');
+//     for(i = 0; i <= max; i++) printf("%3d", f[i]);     putchar('\n');
+
+//     putchar('\n');
+//     for(i = n - 1; i >= 0; i--)             /* Step 3 */
+//     {
+//         b[--f[a[i]]] = a[i];
+//         printf("a[%d]의 %d를 b[%d]에 저장\n", i, a[i], f[a[i]]);
+//     }
+
+//     for(i = 0; i < n; i++) a[i] = b[i];     /* Step 4 */
+
+//     puts("\n정렬 후의 배열");
+//     puts("\n도수 분포");
+//     for(i = 0; i < n; i++) printf("%3d", i);        putchar('\n');
+//     for(i = 0; i < n; i++) printf("---");           putchar('\n');
+//     for(i = 0; i < n; i++) printf("%3d", a[i]);     putchar('\n');
+
+//     free(b);
+//     free(f);
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+//     const int max = 10;
+//     puts("도수 정렬");
+//     printf("요소 개수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+//     printf("0 ~ %d의 정수를 입력하세요.\n", max);
+
+//     for(i = 0; i < nx; i++)
+//     {
+//         do
+//         {
+//             printf("x[%d] : ", i);
+//             scanf("%d", &x[i]);
+//         } while (x[i] < 0 || x[i] > max);
+//     }
+
+//     fsort(x, nx, max);
+//     puts("오름차순 정렬");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] : %d\n", i, x[i]);
+    
+//     free(x);
+//     return 0;
+// }
+
+// Q24
+// void fsort2(int a[], int n, int min, int max)
+// {
+//     int i;
+//     int *f = calloc(max - min + 1, sizeof(int));
+//     int *b = calloc(n, sizeof(int));
+
+//     for(i = 0; i < max - min + 1; i++) f[i] = 0;
+//     for(i = 0; i < n; i++) f[a[i] - min]++;
+//     for(i = 1; i < max - min + 1; i++) f[i] += f[i - 1];
+//     for(i = n - 1; i >= 0; i--) b[--f[a[i] - min]] = a[i];
+//     for(i = 0; i < n; i++) a[i] = b[i];
+
+//     free(b);
+//     free(f);
+// }
+
+// int main(void)
+// {
+//     int i, nx;
+//     int *x;
+//     int min, max;
+
+//     puts("도수 정렬");
+//     printf("요솟수 : ");
+//     scanf("%d", &nx);
+//     x = calloc(nx, sizeof(int));
+
+//     printf("최솟값 : ");
+//     scanf("%d", &min);
+
+//     while(1)
+//     {
+//         printf("최댓값 : ");
+//         scanf("%d", &max);
+//         if(max > min) break;
+//         printf("%d보다 큰 값을 입력하세요\n", min);
+//     }
+
+//     printf("%d ~ %d의 정수를 입력하세요\n", min, max);
+//     for(i = 0; i < nx; i++)
+//     {
+//         do
+//         {
+//             printf("x[%d] : ", i);
+//             scanf("%d", &x[i]);
+//         } while (x[i] < min || x[i] > max);
+//     }
+
+//     fsort2(x, nx, min, max);
+
+//     puts("오름차순으로 정렬");
+//     for(i = 0; i < nx; i++)
+//         printf("x[%d] = %d\n", i, x[i]);
+
+//     free(x);
+//     return 0;
+// }
