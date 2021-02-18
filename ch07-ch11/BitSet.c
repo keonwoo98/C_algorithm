@@ -33,7 +33,7 @@ void Print(BitSet s)
 	printf("{ ");
 	for (i = 0; i < BitSetBits; i++)
 		if (IsMember(s, i))
-			printf("%d", i);
+			printf("%d ", i);
 	printf("}");
 }
 
