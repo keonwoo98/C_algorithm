@@ -200,37 +200,158 @@
 // }
 
 // 실습 8-9
-int str_chr(const char *s, int c)
-{
-    int i = 0;
-    c = (char)c;
-    while(s[i] != c)
-    {
-        if(s[i] == '\0')
-            return -1;
-        i++;
-    }
-    return i;
-}
+// int str_chr(const char *s, int c)
+// {
+//     int i = 0;
+//     c = (char)c;
+//     while(s[i] != c)
+//     {
+//         if(s[i] == '\0')
+//             return -1;
+//         i++;
+//     }
+//     return i;
+// }
 
+// int main(void)
+// {
+//     char str[64];
+//     char tmp[64];
+//     int ch;
+//     int idx;
+
+//     printf("문자열 : ");
+//     scanf("%s", str);
+
+//     printf("검색할 문자 : ");
+//     scanf("%s", tmp);
+//     ch = tmp[0];
+
+//     if((idx = str_chr(str, ch)) == -1)
+//         printf("문자 %c는 문자열에 없습니다.\n", ch);
+//     else
+//         printf("문자 %c는 %d번째에 있습니다.\n", ch, idx + 1);
+
+//     return 0;
+// }
+
+// Q5
+// char *str_chr(const char *s, int c)
+// {
+//     c = (char)c;
+//     while(*s != c)
+//     {
+//         if(*s == '\0')
+//             return NULL;
+//         s++;
+//     }
+//     return (char *)s;
+// }
+
+// int main(void)
+// {
+//     char str[64];
+//     char tmp[64];
+//     int ch;
+//     char *idx;
+
+//     printf("문자열 : ");
+//     scanf("%s", str);
+
+//     printf("검색 : ");
+//     scanf("%s", tmp);
+//     ch = tmp[0];
+
+//     if((idx = str_chr(str, ch)) == -1)
+//         printf("문자 %c는 문자열 안에 없습니다.\n", ch);
+//     else
+//         printf("문자 %c는 %ld번째에 있습니다.\n", ch, (idx - str) + 1);
+
+//     return 0;
+// }
+
+// Q6
+// char *str_rchr(const char *s, int c)
+// {
+//     const char *p = NULL;
+
+//     c = (char)c;
+//     while(1)
+//     {
+//         if(*s == c)
+//             p = s;
+//         if(*s == '\0')
+//             break;
+//         s++;
+//     }
+//     return (char *)p;
+// }
+
+// int main(void)
+// {
+//     char str[64];
+//     char tmp[64];
+//     int ch;
+//     char *idx;
+
+//     printf("문자열 : ");
+//     scanf("%s", str);
+
+//     printf("검색 : ");
+//     scanf("%s", tmp);
+//     ch = tmp[0];
+
+//     if((idx = str_rchr(str, ch)) == -1)
+//         printf("문자 %c는 문자열 안에 없습니다.\n", ch);
+//     else
+//         printf("문자 %c는 %ld번째에 있습니다.\n", ch, (idx - str) + 1);
+
+//     return 0;
+// }
+
+// 실습 8-10
+// int str_cmp(const char *s1, const char *s2)
+// {
+//     while(*s1 == *s2)
+//     {
+//         if(*s1 == '\0')
+//             return 0;
+//         s1++;
+//         s2++;
+//     }
+//     // return (unsigned char)*s1 - (unsigned char)*s2;
+//     return *s1 - *s2;
+// }
+
+// int main(void)
+// {
+//     char st[128];
+//     puts("\"ABCD\"와 비교합니다.");
+//     puts("\"XXXX\"면 종료합니다.");
+//     while(1)
+//     {
+//         printf("문자열 st : ");
+//         scanf("%s", st);
+//         if(str_cmp("XXXX", st) == 0)
+//             break;
+//         printf("str_cmp(\"ABCD\", st) = %d\n", str_cmp("ABCD", st));
+//     }
+//     return 0;
+// }
+
+// 실습 8-11
 int main(void)
 {
-    char str[64];
-    char tmp[64];
-    int ch;
-    int idx;
-
-    printf("문자열 : ");
-    scanf("%s", str);
-
-    printf("검색할 문자 : ");
-    scanf("%s", tmp);
-    ch = tmp[0];
-
-    if((idx = str_chr(str, ch)) == -1)
-        printf("문자 %c는 문자열에 없습니다.\n", ch);
-    else
-        printf("문자 %c는 %d번째에 있습니다.\n", ch, idx + 1);
-
+    char st[128];
+    puts("\"STRING\"의 처음 3개의 문자와 비교합니다.");
+    puts("\"XXXX\"면 종료합니다.");
+    while(1)
+    {
+        printf("문자열 st : ");
+        scanf("%s", st);
+        if(strncmp("XXXX", st, 4) == 0)
+            break;
+        printf("strncmp(\"STRING\", st) = %d\n", strncmp("STRING", st, 4));
+    }
     return 0;
 }
