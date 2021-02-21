@@ -340,18 +340,18 @@
 // }
 
 // 실습 8-11
-int main(void)
-{
-    char st[128];
-    puts("\"STRING\"의 처음 3개의 문자와 비교합니다.");
-    puts("\"XXXX\"면 종료합니다.");
-    while(1)
-    {
-        printf("문자열 st : ");
-        scanf("%s", st);
-        if(strncmp("XXXX", st, 4) == 0)
-            break;
-        printf("strncmp(\"STRING\", st) = %d\n", strncmp("STRING", st, 4));
-    }
-    return 0;
-}
+// int main(void)
+// {
+//     char st[128];
+//     puts("\"STRING\"의 처음 3개의 문자와 비교합니다.");
+//     puts("\"XXXX\"면 종료합니다.");
+//     while(1)
+//     {
+//         printf("문자열 st : ");
+//         scanf("%s", st);
+//         if(strncmp("XXXX", st, 4) == 0)
+//             break;
+//         printf("strncmp(\"STRING\", st) = %d\n", strncmp("STRING", st, 4));
+//     }
+//     return 0;
+// }
