@@ -355,3 +355,61 @@
 //     }
 //     return 0;
 // }
+
+// Q7
+// int str_ncmp(const char *s1, const char *s2, size_t n)
+// {
+//     int i;
+
+//     for(i = 0; i < n; i++)
+//     {
+//         if(s1[i] != s2[i])
+//             return 0;
+//     }
+//     return 1;
+// }
+
+// int main(void)
+// {
+//     char s1[64];
+//     char s2[64];
+//     int n;
+
+//     printf("s1 : ");
+//     scanf("%s", s1);
+//     printf("s2 : ");
+//     scanf("%s", s2);
+//     printf("몇 개의 문자열을 비교하시겠습니까? : ");
+//     scanf("%d", &n);
+
+//     printf("s1과 s2의 %d자리까지 문자열 비교 : %s\n", n, str_ncmp(s1, s2, n) ? "참" : "거짓");
+//     return 0;
+// }
+
+// Q8-1
+#include <ctype.h>
+
+int str_cmpic(const char *s1, const char *s2)
+{
+    while(toupper(*s1) == toupper(*s2))
+    {
+        if(*s1 == '\0')
+            return 1;
+    s1++;
+    s2++;
+    }
+    return 0;
+}
+
+int main(void)
+{
+    char s1[64];
+    char s2[64];
+
+    printf("s1 : ");
+    scanf("%s", s1);
+    printf("s2 : ");
+    scanf("%s", s2);
+    printf("s1과 s2는 %s.\n", str_cmpic(s1, s2) ? "같습니다" : "다릅니다");
+    return 0;
+}
