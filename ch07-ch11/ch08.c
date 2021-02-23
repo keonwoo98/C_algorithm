@@ -416,32 +416,240 @@
 // }
 
 // Q8-2
-#include <ctype.h>
+// #include <ctype.h>
 
-int str_ncmpic(const char *s1, const char *s2, size_t n)
+// int str_ncmpic(const char *s1, const char *s2, size_t n)
+// {
+//     int i;
+
+//     for(i = 0; i < n; i++)
+//     {
+//         if(toupper(s1[i]) != toupper(s2[i]))
+//             return 0;
+//     }
+//     return 1;
+// }
+
+// int main(void)
+// {
+//     char s1[64];
+//     char s2[64];
+//     int n;
+
+//     printf("s1 : ");
+//     scanf("%s", s1);
+//     printf("s2 : ");
+//     scanf("%s", s2);
+//     printf("비교 개수 : ");
+//     scanf("%d", &n);
+//     printf("s1과 s2는 %s.\n", str_ncmpic(s1, s2, n) ? "같습니다" : "다릅니다");
+//     return 0;
+// }
+
+// 실습 8-12
+// int bf_match(const char txt[], const char pat[])
+// {
+//     int pt = 0;
+//     int pp = 0;
+//     while(txt[pt] != '\0' && pat[pp] != '\0')
+//     {
+//         if(txt[pt] == pat[pp])
+//         {
+//             pt++;
+//             pp++;
+//         }
+//         else
+//         {
+//             pt = pt - pp + 1;
+//             pp = 0;
+//         }
+//     }
+//     if(pat[pp] == '\0')
+//         return pt - pp;
+//     return -1;
+// }
+
+// int main(void)
+// {
+//     int idx;
+//     char s1[256];
+//     char s2[256];
+//     puts("브루트-포스법");
+//     printf("텍스트 : ");
+//     scanf("%s", s1);
+//     printf("패턴 : ");
+//     scanf("%s", s2);
+//     idx = bf_match(s1, s2);
+//     if(idx == -1)
+//         puts("텍스트에 패턴이 없습니다.");
+//     else
+//         printf("%d번째 문자부터 match 합니다.\n", idx + 1);
+    
+//     return 0;
+// }
+
+// Q9
+// int bf_match(const char txt[], const char pat[])
+// {
+//     int i;
+//     int k = -1;
+//     int tlen = strlen(txt);
+//     int plen = strlen(pat);
+//     int pt = 0;
+//     int pp = 0;
+//     int cnt = 0;
+
+//     while(txt[pt] != '\0' && pat[pp] != '\0')
+//     {
+//         if(k == pt - pp)
+//             printf("    ");
+//         else
+//         {
+//             printf("%2d  ", pt - pp);
+//             k = pt - pp;
+//         }
+//         for(i = 0; i < tlen; i++)
+//             printf("%c ", txt[i]);
+//         putchar('\n');
+
+//         printf("%*s%c\n", pt * 2 + 4, "", (txt[pt] == pat[pp]) ? '+' : '|');
+
+//         printf("%*s", (pt - pp) * 2 + 4, "");
+//         for(i = 0; i < plen; i++)
+//             printf("%c ", pat[i]);
+//         printf("\n\n");
+//         cnt++;
+        
+//         if(txt[pt] == pat[pp])
+//         {
+//             pt++;
+//             pp++;
+//         }
+//         else
+//         {
+//             pt = pt - pp + 1;
+//             pp = 0;
+//         }
+//     }
+//     printf("비교횟수 : %d\n", cnt);
+//     if(pat[pp] == '\0')
+//         return pt - pp;
+//     return -1;
+// }
+
+// int main(void)
+// {
+//     int idx;
+//     char s1[256];
+//     char s2[256];
+//     puts("브루트-포스법");
+//     printf("텍스트 : ");
+//     scanf("%s", s1);
+//     printf("패턴 : ");
+//     scanf("%s", s2);
+//     idx = bf_match(s1, s2);
+//     if(idx == -1)
+//         puts("텍스트에 패턴이 없습니다.");
+//     else
+//         printf("%d번째 문자부터 match 합니다.\n", idx + 1);
+    
+//     return 0;
+// }
+
+// Q10
+// int bf_matchr(const char txt[], const char pat[])
+// {
+//     int txt_len = strlen(txt);
+//     int pat_len = strlen(pat);
+//     int pt = txt_len - pat_len;
+//     int pp;
+
+//     while(pt >= 0)
+//     {
+//         pp = 0;
+//         while(txt[pt] == pat[pp])
+//         {
+//             if(pp == pat_len - 1)
+//                 return pt - pp;
+//             pp++;
+//             pt++;
+//         }
+//         pt = pt - pp - 1;
+//     }
+//     return -1;
+// }
+
+// int main(void)
+// {
+//     int idx;
+//     char s1[256];
+//     char s2[256];
+//     puts("브루트-포스법(검색 문자열 마지막 인덱스 반환)");
+//     printf("텍스트 : ");
+//     scanf("%s", s1);
+//     printf("패턴 : ");
+//     scanf("%s", s2);
+//     idx = bf_matchr(s1, s2);
+//     if(idx == -1)
+//         puts("텍스트에 패턴이 없습니다.");
+//     else
+//         printf("%d번째 문자부터 match 합니다.\n", idx + 1);
+    
+//     return 0;
+// }
+
+// 실습 8-13
+int kmp_match(const char txt[], const char pat[])
 {
-    int i;
+    int pt = 1;
+    int pp = 0;
+    int skip[1024];
 
-    for(i = 0; i < n; i++)
+    skip[pt] = 0;
+    while(pat[pt] != '\0')
     {
-        if(toupper(s1[i]) != toupper(s2[i]))
-            return 0;
+        if(pat[pt] == pat[pp])
+            skip[++pt] = ++pp;
+        else if(pp == 0)
+            skip[++pt] = pp;
+        else
+            pp = skip[pp];
     }
-    return 1;
+
+    pt = pp = 0;
+    while(txt[pt] != '\0' && pat[pp] != '\0')
+    {
+        if(txt[pt] == pat[pp])
+        {
+            pt++;
+            pp++;
+        }
+        else if(pp == 0)
+            pt++;
+        else
+            pp = skip[pp];
+    }
+    if(pat[pp] == '\0')
+        return pt - pp;
+
+    return -1;
 }
 
 int main(void)
 {
-    char s1[64];
-    char s2[64];
-    int n;
-
-    printf("s1 : ");
+    int idx;
+    char s1[256];
+    char s2[256];
+    puts("KMP");
+    printf("텍스트 : ");
     scanf("%s", s1);
-    printf("s2 : ");
+    printf("패턴 : ");
     scanf("%s", s2);
-    printf("비교 개수 : ");
-    scanf("%d", &n);
-    printf("s1과 s2는 %s.\n", str_ncmpic(s1, s2, n) ? "같습니다" : "다릅니다");
+    idx = kmp_match(s1, s2);
+    if(idx == -1)
+        puts("텍스트에 패턴이 없습니다.");
+    else
+        printf("%d번째 문자부터 match 합니다.\n", idx + 1);
+    
     return 0;
 }
