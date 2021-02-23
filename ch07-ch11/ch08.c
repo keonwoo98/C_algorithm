@@ -387,29 +387,61 @@
 // }
 
 // Q8-1
+// #include <ctype.h>
+
+// int str_cmpic(const char *s1, const char *s2)
+// {
+//     while(toupper(*s1) == toupper(*s2))
+//     {
+//         if(*s1 == '\0')
+//             return 1;
+//     s1++;
+//     s2++;
+//     }
+//     return 0;
+// }
+
+// int main(void)
+// {
+//     char s1[64];
+//     char s2[64];
+
+//     printf("s1 : ");
+//     scanf("%s", s1);
+//     printf("s2 : ");
+//     scanf("%s", s2);
+//     printf("s1과 s2는 %s.\n", str_cmpic(s1, s2) ? "같습니다" : "다릅니다");
+//     printf("s1 : %s\ns2 : %s\n", s1, s2);
+//     return 0;
+// }
+
+// Q8-2
 #include <ctype.h>
 
-int str_cmpic(const char *s1, const char *s2)
+int str_ncmpic(const char *s1, const char *s2, size_t n)
 {
-    while(toupper(*s1) == toupper(*s2))
+    int i;
+
+    for(i = 0; i < n; i++)
     {
-        if(*s1 == '\0')
-            return 1;
-    s1++;
-    s2++;
+        if(toupper(s1[i]) != toupper(s2[i]))
+            return 0;
     }
-    return 0;
+    return 1;
 }
 
 int main(void)
 {
     char s1[64];
     char s2[64];
+    int n;
 
     printf("s1 : ");
     scanf("%s", s1);
     printf("s2 : ");
     scanf("%s", s2);
-    printf("s1과 s2는 %s.\n", str_cmpic(s1, s2) ? "같습니다" : "다릅니다");
+    printf("비교 개수 : ");
+    scanf("%d", &n);
+    printf("s1과 s2는 %s.\n", str_ncmpic(s1, s2, n) ? "같습니다" : "다릅니다");
     return 0;
 }
