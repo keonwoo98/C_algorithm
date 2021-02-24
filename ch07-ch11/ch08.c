@@ -767,48 +767,233 @@
 // }
 
 // 실습 8-14
-int bm_match(const char txt[], const char pat[])
-{
-    int pt;
-    int pp;
-    int txt_len = strlen(txt);
-    int pat_len = strlen(pat);
-    int skip[UCHAR_MAX + 1];
-    for(pt = 0; pt <= UCHAR_MAX; pt++)
-        skip[pt] = pat_len;
-    for(pt = 0; pt < pat_len - 1; pt++)
-        skip[pat[pt]] = pat_len - pt - 1;
+// int bm_match(const char txt[], const char pat[])
+// {
+//     int pt;
+//     int pp;
+//     int txt_len = strlen(txt);
+//     int pat_len = strlen(pat);
+//     int skip[UCHAR_MAX + 1];
+//     for(pt = 0; pt <= UCHAR_MAX; pt++)
+//         skip[pt] = pat_len;
+//     for(pt = 0; pt < pat_len - 1; pt++)
+//         skip[pat[pt]] = pat_len - pt - 1;
 
-    while(pt < txt_len)
+//     while(pt < txt_len)
+//     {
+//         pp = pat_len - 1;
+//         while(txt[pt] == pat[pp])
+//         {
+//             if(pp == 0)
+//                 return pt;
+//             pp--;
+//             pt--;
+//         }
+//         pt += (skip[txt[pt]] > pat_len - pp) ? skip[txt[pt]] : pat_len - pp;
+//     }
+//     return -1;
+// }
+
+// int main(void)
+// {
+//     int idx;
+//     char s1[256];
+//     char s2[256];
+//     puts("Boyer-Moore");
+//     printf("Text : ");
+//     scanf("%s", s1);
+//     printf("Pattern : ");
+//     scanf("%s", s2);
+//     idx = bm_match(s1, s2);
+//     if(idx == -1)
+//         puts("텍스트에 패턴이 없습니다.");
+//     else
+//         printf("%d번째 문자부터 match합니다.\n", idx + 1);
+
+//     return 0;
+// }
+
+// Q12
+// void _print(const char txt[], const char pat[], int txt_len, int pat_len, int pt, int pp)
+// {
+//     int i = 0, k = 0;
+
+//     if(pp != pat_len - 1)
+//         printf("    ");
+//     else
+//     {
+//         printf("%2d  ", pt - pp);
+//         k = pt - pp;
+//     }
+//     for(i = 0; i < txt_len; i++)
+//         printf("%c ", txt[i]);
+//     putchar('\n');
+
+//     printf("%*s%c\n", pt * 2 + 4, "", (txt[pt] == pat[pp]) ? '+' : '|');
+
+//     printf("%*s", (pt - pp) * 2 + 4, "");
+//     for(i = 0; i < pat_len; i++)
+//         printf("%c ", pat[i]);
+//     printf("\n\n");
+// }
+
+// int bm_match(const char txt[], const char pat[])
+// {
+//     int pt;
+//     int pp;
+//     int txt_len = strlen(txt);
+//     int pat_len = strlen(pat);
+//     int skip[UCHAR_MAX + 1];
+//     for(pt = 0; pt <= UCHAR_MAX; pt++)
+//         skip[pt] = pat_len;
+//     for(pt = 0; pt < pat_len - 1; pt++)
+//         skip[pat[pt]] = pat_len - pt - 1;
+
+//     while(pt < txt_len)
+//     {
+//         pp = pat_len - 1;
+//         while(_print(txt, pat, txt_len, pat_len, pt, pp), txt[pt] == pat[pp])
+//         {
+//             if(pp == 0)
+//                 return pt;
+//             pp--;
+//             pt--;
+//         }
+//         pt += (skip[txt[pt]] > pat_len - pp) ? skip[txt[pt]] : pat_len - pp;
+//     }
+//     return -1;
+// }
+
+// int main(void)
+// {
+//     int idx;
+//     char s1[256];
+//     char s2[256];
+//     puts("Boyer-Moore");
+//     printf("Text : ");
+//     scanf("%s", s1);
+//     printf("Pattern : ");
+//     scanf("%s", s2);
+//     idx = bm_match(s1, s2);
+//     if(idx == -1)
+//         puts("텍스트에 패턴이 없습니다.");
+//     else
+//         printf("%d번째 문자부터 match합니다.\n", idx + 1);
+
+//     return 0;
+// }
+
+// 실습 8-15
+// int main(void)
+// {
+//     char s1[256], s2[256];
+//     char *p;
+//     puts("strstr 함수");
+//     printf("Text : ");
+//     scanf("%s", s1);
+//     printf("Pattern : ");
+//     scanf("%s", s2);
+//     p = strstr(s1, s2);
+
+//     if(p == NULL)
+//         printf("텍스트에 패턴이 없습니다.\n");
+//     else
+//     {
+//         int ofs = p - s1;
+//         printf("\n%s\n", s1);
+//         printf("%*s|\n", ofs, "");
+//         printf("%*s%s\n", ofs, "", s2);
+//     }
+//     return 0;
+// }
+
+// Q13
+// char *str_str(const char *s1, const char *s2)
+// {
+//     const char *p1 = s1;
+//     const char *p2 = s2;
+
+//     while(*p1 && *p2)
+//     {
+//         if(*p1 == *p2)
+//         {
+//             p1++;
+//             p2++;
+//         }
+//         else
+//         {
+//             p1 -= p2 - s2 - 1;
+//             p2 = s2;
+//         }
+//     }
+//     return *p2 ? NULL : (char *)(p1 - (p2 - s2));
+// }
+
+// int main(void)
+// {
+//     char s1[256], s2[256];
+//     char *p;
+//     puts("str_str 함수");
+//     printf("Text : ");
+//     scanf("%s", s1);
+//     printf("Pattern : ");
+//     scanf("%s", s2);
+//     p = str_str(s1, s2);
+
+//     if(p == NULL)
+//         printf("텍스트에 패턴이 없습니다.\n");
+//     else
+//     {
+//         int ofs = p - s1;
+//         printf("\n%s\n", s1);
+//         printf("%*s|\n", ofs, "");
+//         printf("%*s%s\n", ofs, "", s2);
+//     }
+//     return 0;
+// }
+
+// Q14
+char *str_rstr(const char *s1, const char *s2)
+{
+    int s1_len = strlen(s1);
+    int s2_len = strlen(s2);
+    int pt = s1_len - s2_len;
+    int pp;
+
+    while(pt >= 0)
     {
-        pp = pat_len - 1;
-        while(txt[pt] == pat[pp])
+        pp = 0;
+        while(s1[pt] == s2[pp])
         {
-            if(pp == 0)
-                return pt;
-            pp--;
-            pt--;
+            if(pp == s2_len - 1)
+                return &s1[pt - pp];
+            pp++;
+            pt++;
         }
-        pt += (skip[txt[pt]] > pat_len - pp) ? skip[txt[pt]] : pat_len - pp;
+        pt = pt - pp - 1;
     }
-    return -1;
+    return NULL;
 }
 
 int main(void)
 {
-    int idx;
-    char s1[256];
-    char s2[256];
-    puts("Boyer-Moore");
+    char s1[256], s2[256];
+    char *p;
+    puts("str_str 함수");
     printf("Text : ");
     scanf("%s", s1);
     printf("Pattern : ");
     scanf("%s", s2);
-    idx = bm_match(s1, s2);
-    if(idx == -1)
-        puts("텍스트에 패턴이 없습니다.");
-    else
-        printf("%d번째 문자부터 match합니다.\n", idx + 1);
+    p = str_rstr(s1, s2);
 
+    if(p == NULL)
+        printf("텍스트에 패턴이 없습니다.\n");
+    else
+    {
+        int ofs = p - s1;
+        printf("\n%s\n", s1);
+        printf("%*s|\n", ofs, "");
+        printf("%*s%s\n", ofs, "", s2);
+    }
     return 0;
 }
