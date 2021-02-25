@@ -6,7 +6,7 @@
 /* ---삽입할 레코드의 인덱스를 구한 다음 반환--- */
 static Index GetIndex(List *list)
 {
-    if(list->deleted == NULL)           /* 삭제할 레코드가 없는 경우 */
+    if(list->deleted == Null)           /* 삭제할 레코드가 없는 경우 */
         return ++(list->max);
     else
     {
@@ -19,10 +19,10 @@ static Index GetIndex(List *list)
 /* ---지정된 레코드를 삭제 리스트에 등록--- */
 static void DeleteIndex(List *list, Index idx)
 {
-    if(list->deleted == NULL)           /* 삭제할 레코드가 없는 경우 */
+    if(list->deleted == Null)           /* 삭제할 레코드가 없는 경우 */
     {
         list->deleted = idx;
-        list->n[idx].Dnext = NULL;
+        list->n[idx].Dnext = Null;
     }
     else
     {
@@ -42,16 +42,16 @@ static void SetNode(Node *n, const Member *x, Index next)
 void Initialize(List *list, int size)
 {
     list->n = calloc(size, sizeof(Node));
-    list->head = NULL;
-    list->crnt = NULL;
-    list->max = NULL;
-    list->deleted = NULL;
+    list->head = Null;
+    list->crnt = Null;
+    list->max = Null;
+    list->deleted = Null;
 }
 
 Index search(List *list, const Member *x, int compare(const Member *x, const Member *y))
 {
     Index ptr = list->head;
-    while(ptr != NULL)
+    while(ptr != Null)
     {
         if(compare(&list->n[ptr].data, x) == 0)
         {
