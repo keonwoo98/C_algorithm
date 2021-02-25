@@ -29,6 +29,10 @@ void RemoveRear(List *list);
 
 void RemoveCurrent(List *list);
 
+void Purge(List *list, int compare(const Member *x, const Member *y));
+
+Node *Retrieve(List *list, int n);
+
 void Clear(List *list);
 
 void PrintCurrent(const List *list);
