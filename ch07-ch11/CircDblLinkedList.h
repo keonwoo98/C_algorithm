@@ -47,6 +47,10 @@ void RemoveRear(Dlist *list);
 
 void RemoveCurrent(Dlist *list);
 
+void Purge(Dlist *list, int compare(const Member *x, const Member *y));
+
+Dnode *Retrieve(Dlist *list, int n);
+
 void Clear(Dlist *list);
 
 void Terminate(Dlist *list);
