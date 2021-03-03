@@ -16,7 +16,13 @@ BinNode *Add(BinNode *p, const Member *x);
 
 int Remove(BinNode **root, const Member *x);
 
+BinNode *GetMinNode(const BinNode *p);
+
+BinNode *GetMaxNode(const BinNode *p);
+
 void PrintTree(const BinNode *p);
+
+void PrintTreeReverse(const BinNode *p);
 
 void FreeTree(BinNode *p);
 

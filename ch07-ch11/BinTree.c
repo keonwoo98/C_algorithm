@@ -86,6 +86,30 @@ int Remove(BinNode **root, const Member *x)
     return 0;
 }
 
+BinNode *GetMinNode(const BinNode *p)
+{
+    if(p == NULL)
+        return NULL;
+    else
+    {
+        while(p->left != NULL)
+            p = p->left;
+        return p;
+    }
+}
+
+BinNode *GetMaxNode(const BinNode *p)
+{
+    if(p == NULL)
+        return NULL;
+    else
+    {
+        while(p->right != NULL)
+            p = p->right;
+        return p;
+    }
+}
+
 void PrintTree(const BinNode *p)
 {
     if(p != NULL)
@@ -93,6 +117,16 @@ void PrintTree(const BinNode *p)
         PrintTree(p->left);
         PrintLnMember(&p->data);
         PrintTree(p->right);
+    }
+}
+
+void PrintTreeReverse(const BinNode *p)
+{
+    if(p != NULL)
+    {
+        PrintTreeReverse(p->right);
+        PrintLnMember(&p->data);
+        PrintTreeReverse(p->left);
     }
 }
 
