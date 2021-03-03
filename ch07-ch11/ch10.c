@@ -15,7 +15,7 @@ Menu SelectMenu(void)
     {
         printf("(1)삽입 (2)삭제 (3)검색 (4)최솟값 (5)최댓값 (6)출력 (7)내림차순 출력 (0)종료 : ");
         scanf("%d", &ch);
-    } while (ch < TERMINATE || ch > PRINT);
+    } while (ch < TERMINATE || ch > PRINTREVERSE);
     return(Menu)ch;
 }
 
