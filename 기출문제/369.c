@@ -1,14 +1,14 @@
 #include <stdio.h>
-#include <math.h>
+#include <math.h>       // pow 제곱 함수 사용을 위한 헤더파일
  
 int main()
 {
-    int max;
-    int i, j, k;
-    int i_cpy;
-    int arr[3];
-    int cnt;
-    int b369;
+    int max;            // 출력할 최대 숫자르 저장할 변수
+    int i, j, k;        // 반복을 위한 변수
+    int i_cpy;          // i를 복사해서 사용할 변수
+    int arr[3];         // 각 자리수 별로 분리해서 저장할 배열
+    int cnt;            // 입력된 숫자의 자리수를 저장할 변수
+    int b369;           // 369에 해당하는 수인지 체크할 변수
     printf("최대 숫자를 입력해주세요(999이하) : ");
     scanf("%d", &max);
     for (i = 1; i <= max; i++)
@@ -16,24 +16,27 @@ int main()
         b369 = 0;
         i_cpy = i;
         cnt = 0;
+        // j는 거듭제곱을 표현하는 변수로 2부터 0까지 즉, 10의 2승부터 0승까지를 표현
+        // k는 10의 j제곱을 저장하는 변수로 100, 10, 1까지 반복
         for (j = 2, k = pow(10, j); j >= 0; j--, k = pow(10, j))
         {
-            if (i_cpy / k || i_cpy == 0)
+            if (i_cpy / k || i_cpy == 0)        // 현제 i_cpy가 k로 나눴을 때 몫이 있다면 혹은 i_cpy가 0이라면
             {
-                arr[cnt++] = i_cpy / k;
-                i_cpy %= k;
+                arr[cnt++] = i_cpy / k;         // i_cpy를 k로 나눈 몫을 배열에 저장
+                i_cpy %= k;                     // 그리고 i_cpy를 k로 나눈 몫을 제외하고 나머지만을 다시 i_cpy에 저장
             }
+            // 그럼 각각의 몫을 arr 배열에 저장하고 i_cpy는 계속 나머지가 저장되어 arr배열에는 최종적으로 현재의 수를 자리수 별로 나눈 값이 저장됨
         }
-        for (j = 0; j < cnt; j++)
-            if (arr[j] % 3 == 0 && arr[j] != 0)
+        for (j = 0; j < cnt; j++)               // 현재의 i_cpy의 자리수만큼 반복하며
+            if (arr[j] % 3 == 0 && arr[j] != 0)     // 그 수를 3으로 나눴을 때 나머지가 0이면서 그 수가 0이 아니면 369이르모 짝을 출력
             {
-                printf("짝");
-                b369 = 1;
+                printf("짝");                   // 만약 33, 333 등이면 짝을 여러번 출력
+                b369 = 1;                      // 369이므로 변수에 체크
             }
         if (b369)
-            printf("\n");
+            printf("\n");                       // 짝을 출력 후 개행
         else
-            printf("%d\n", i);
+            printf("%d\n", i);                  // 369가 아니면 그냥 숫자를 출력
     }
     return 0;
 }
