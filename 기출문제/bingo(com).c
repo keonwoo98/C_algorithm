@@ -149,7 +149,7 @@ int checkBingo(int *bingo)
     }
     
     for(i = 4; i >= 0; i--)
-        for(j = 4 - i; j >= 4; j--)
+        for(j = 4 - i; j >= 4 - i; j--)
             if(bingo[i * 5 + j] == 35)
                 bingoCheck[11]++;
     
