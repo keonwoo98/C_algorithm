@@ -177,7 +177,7 @@ void inputNum(int *userBingo, int *comBingo)
             {
                 if(userBingo[i] == num)
                 {
-                    userBingo[i] == 35;
+                    userBingo[i] = 35;
                     isCheck = 1;
                 }
                 if(comBingo[i] == num)
