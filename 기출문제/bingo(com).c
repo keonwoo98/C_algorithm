@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <Windows.h>
+// #include <Windows.h>
 
 void bingoGameStart(int *);
 void printRecord(int *);
