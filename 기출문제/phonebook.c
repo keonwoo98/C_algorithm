@@ -14,13 +14,18 @@ int SelectMenu(void)
     int menu;
     do
     {
-        printf("1. 등록할 정보 입력(최대 10명)\n");
+        printf("\n1. 등록할 정보 입력(최대 10명)\n");
         printf("2. 등록한 정보 출력\n");
         printf("0. 종료\n");
         printf("번호를 입력하세요 : ");
         scanf("%d", &menu);
     } while (menu < 0 || menu > 2);
     return menu;
+}
+
+void ClearBuffer(void)
+{
+    while(getchar() != '\n');
 }
 
 int main()
@@ -70,9 +75,9 @@ void phone_print(Phone table[], int cnt)
 {
     int i;
     printf("\n------------------------------------\n");
-    printf("%8s %16s %6s\n", "이름", "전화번호", "나이");
+    printf("%7s %16s %11s\n", "이름", "전화번호", "나이");
     printf("------------------------------------\n");
     for (i = 0; i < cnt; i++)
-        printf("%8s %16s %6d\n", table[i].name, table[i].number, table[i].age);
+        printf("%9s %14s %6d\n", table[i].name, table[i].number, table[i].age);
     printf("------------------------------------\n\n");
 }
