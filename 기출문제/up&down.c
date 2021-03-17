@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 
 int main()
 {
@@ -14,6 +15,7 @@ int main()
     chance = 5;
     min = 1;
     max = 50;           // 범위 : 1 ~ 50
+    srand((unsigned int)time(NULL));
     com = rand() % max + min;
 
     printf("********** UP & DOWN GAME **********\n");
