@@ -54,7 +54,7 @@ int main()
             temp = rand() % 45 + 1;
             lotto[i] = temp;
             for(j = 0; j < i; j++)
-                if(lotto[i] == temp)
+                if(lotto[j] == temp)
                 {
                     i--;
                     cnt++;
