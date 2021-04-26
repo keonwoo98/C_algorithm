@@ -32,5 +32,3 @@ int	main(void)
 	free(height);
 	return 0;
 }
-
-
