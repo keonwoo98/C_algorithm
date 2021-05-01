@@ -12,5 +12,3 @@ int	search(int a[], int n, int key)
 	for (i = 0; i < n; i++)
 		printf("---");
 	printf("-\n");
-
-
