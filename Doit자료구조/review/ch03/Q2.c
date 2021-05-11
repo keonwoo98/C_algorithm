@@ -57,7 +57,7 @@ int main(void)
 	else
 		printf("%d는 x[%d]에 있습니다.\n", ky, idx);
 
-	free(x); /* 배열을 해제 */
+	free(x);
 
 	return 0;
 }
