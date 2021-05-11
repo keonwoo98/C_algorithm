@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*--- 배열 a에서 값이 key인 모든 요소의 인덱스를 idx에 저장 ---*/
 int search_idx(const int a[], int n, int key, int idx[])
 {
 	int i, count = 0;
@@ -43,8 +42,8 @@ int main(void)
 		putchar('\n');
 	}
 
-	free(x);	/* 배열을 해제 */
-	free(idx);	/* 배열을 해제 */
+	free(x);
+	free(idx);
 
 	return 0;
 }
