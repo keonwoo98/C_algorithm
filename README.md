@@ -1,6 +1,6 @@
 # **C를 통한 자료구조 & 알고리즘**
 
-![C_Algorithm](https://user-images.githubusercontent.com/76714659/147350633-f333f72e-5f5a-449f-babf-fb623ad90fe9.png)
+![C_Algorithm](https://user-images.githubusercontent.com/76714659/147350742-a04eaa3c-5581-443d-b894-9d9076e6644c.png)
 
 ## **Contents**
 ---
